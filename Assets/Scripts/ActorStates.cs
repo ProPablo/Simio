@@ -16,13 +16,12 @@ public class IdleState : ActorStates
     public override void OnEnter()
     {
         base.OnEnter();
-        actor.anim.PlayInFixedTime(Actor.IdleKey);
+        //actor.anim.PlayInFixedTime(Actor.IdleKey);
     }
     public override void Update()
     {
         base.Update();
-        if (actor.moveDir != Vector2.zero)
-            actor.ChangeState(new MoveState(actor));
+        //actor.ChangeState(new MoveState(actor));
     }
 }
 public class MoveState : ActorStates
@@ -31,12 +30,11 @@ public class MoveState : ActorStates
     public override void OnEnter()
     {
         base.OnEnter();
-        actor.anim.PlayInFixedTime(Actor.MoveKey);
+        //actor.anim.PlayInFixedTime(Actor.MoveKey);
     }
     public override void Update()
     {
         base.Update();
-        if (actor.moveDir == Vector2.zero)
-            actor.ChangeState(new IdleState(actor));
+        //actor.ChangeState(new IdleState(actor));
     }
 }

@@ -9,7 +9,7 @@ BlendTree:
   m_Name: Idle
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 9d7e5a8a4baa257409f2f4516e8dba13, type: 2}
+    m_Motion: {fileID: 7400000, guid: b98f4bef88a6ce148a58b7ab50d44854, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
@@ -17,7 +17,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 8b13f85d21305f845957b5651f2b1c45, type: 2}
+    m_Motion: {fileID: 7400000, guid: 0f06f2a52f3cab941a1cdcab6ef43f2d, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -25,7 +25,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 077a4473812de474b812bc3a6fb7224b, type: 2}
+    m_Motion: {fileID: 7400000, guid: 4cbd8cc247a6df346a3b2fa3733990c3, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -33,7 +33,7 @@ BlendTree:
     m_DirectBlendParameter: xLast
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 4bb31eacd8be51c4d9ccfdcc45db6035, type: 2}
+    m_Motion: {fileID: 7400000, guid: 6555cfecddf16ea4ab9f346ef5b2963a, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
@@ -125,7 +125,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SheepWhite
+  m_Name: SheepBrown
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: xLast
