@@ -8,7 +8,8 @@ public class Actor : StateMachine
     public RuntimeAnimatorController[] spriteVariants;
     public Direction lastDir;
     public int ticksPerAction = 3;
-    public TickComponent[] behaviours;
+    public int tickCounter;
+    public BehaviourComponent[] behaviours;
     #region Animation Keys
     public static readonly int IdleDownKey = Animator.StringToHash("IdleDown");
     public static readonly int IdleLeftKey = Animator.StringToHash("IdleLeft");
@@ -22,15 +23,16 @@ public class Actor : StateMachine
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        behaviours = GetComponents<BehaviourComponent>();
         anim.runtimeAnimatorController = spriteVariants[Random.Range(0, spriteVariants.Length)];
+        foreach (var behaviour in behaviours)
+            behaviour.actor = this;
     }
     protected override void Start()
     {
         base.Start();
+        tickCounter = ticksPerAction;
         currentState = new IdleState(this);
         currentState.OnEnter();
-    }
-    protected override void Update()
-    {
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2433895532430418246}
   - component: {fileID: 2433895532430418245}
   - component: {fileID: 2433895532430418244}
+  - component: {fileID: 6159822467651081129}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -50,8 +51,8 @@ MonoBehaviour:
   spriteVariants:
   - {fileID: 9100000, guid: 0fc3780e771280c4fae1206ff33829c2, type: 2}
   - {fileID: 9100000, guid: 0322b282afd47b647b92d294440c7c53, type: 2}
-  moveDir: {x: 0, y: 0}
-  ticksPerAction: 3
+  lastDir: 0
+  ticksPerAction: 4
   behaviours: []
 --- !u!95 &2433895532430418245
 Animator:
@@ -63,7 +64,7 @@ Animator:
   m_GameObject: {fileID: 2433895532430418243}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0fc3780e771280c4fae1206ff33829c2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0322b282afd47b647b92d294440c7c53, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -114,7 +115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1809851756, guid: a963a2e75c3549a4c892f380da035706, type: 3}
+  m_Sprite: {fileID: 1950348916, guid: a963a2e75c3549a4c892f380da035706, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,3 +126,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6159822467651081129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2433895532430418243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b81cf4d9d69a4542ae376b445d3abeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
