@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexGrid : MonoBehaviour
 {
     public float outerRad = 5f;
@@ -18,7 +18,10 @@ public class HexGrid : MonoBehaviour
     public HexCell cellPrefab;
     private HexCell[] cells;
 
-    // Start is called before the first frame update
+    
+    Mesh hexMesh;
+    List<Vector3> vertices;
+    List<int> triangles;
     void Awake()
     {
         corners = new[]
@@ -30,6 +33,10 @@ public class HexGrid : MonoBehaviour
             new Vector3(-0.5f * outerRad, 0, -innerRad),
             new Vector3(-outerRad, 0, 0),
         };
+        GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
+        hexMesh.name = "Hex Mesh";
+        vertices = new List<Vector3>();
+        triangles = new List<int>();
     }
 
     private void Start()
@@ -51,13 +58,22 @@ public class HexGrid : MonoBehaviour
     public void CreateCell(int x, int z, int index)
     {
         Vector3 position;
-        position.x = x * outerRad;
+        // position.x = x * outerRad * 1.5f;
+        position.x = (x + z * 0.5f - z / 2) * outerRad * 1.5f;
         position.y = 0f;
-        position.z = z * outerRad;
+        position.z = z * innerRad * 2f;
+
+        // position.x = x * (innerRadius * 2f);
+        // position.y = 0f;
+        // position.z = z * (HexMetrics.outerRadius * 1.5f);
 
         var cell = cells[index] = Instantiate<HexCell>(cellPrefab);
-        cell.Init(0, new Vector2Int(x, z), index);
-        
+        cell.cellType = 0;
+        cell.location = new Vector2Int(x, z);
+        cell.index = index;
+        cell.text.text = x.ToString() + "\n" + z.ToString();
+        // cell.Init(0, new Vector2Int(x, z), index);
+
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
     }

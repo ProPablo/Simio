@@ -527,5 +527,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 2205339723754542017, guid: 244e5e01800ae2d4d95624986b40dff8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 244e5e01800ae2d4d95624986b40dff8, type: 3}
