@@ -15,19 +15,30 @@ public class HexGrid : MonoBehaviour
 
     public static float InnerRad => instance.innerRad;
 
+    public float XMax => outerRad * width / 2;
+    public float ZMax => outerRad * height / 2;
+    
+
     //using second configuration
     public Vector3[] corners;
     public int width = 6;
     public int height = 6;
+    public bool autoUpdate = true;
 
     public HexCell cellPrefab;
     private HexCell[] cells;
-
     public HexMesh mesh;
-
     public static HexGrid instance;
-
     private Camera _cam;
+
+    [Header("Perlin noise")] public float noiseScale;
+    public uint octaves;
+    [Range(0, 1)] public float persistance;
+    public float lacunarity;
+    public int seed;
+    public Vector2 offset;
+    public float heightScale = 2f;
+
 
     void Awake()
     {
@@ -69,31 +80,39 @@ public class HexGrid : MonoBehaviour
 
     public void CreateGrid()
     {
+        float[,] noiseMap = Noise.GenerateNoiseMap (width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
+
         cells = new HexCell[width * height];
         int cellIndex = 0;
         for (int i = 0; i < width; i++)
         for (int j = 0; j < height; j++)
         {
-            CreateCell(i, j, cellIndex++);
+            CreateCell(i, j, cellIndex++, noiseMap[i, j]);
+        }
+
+        foreach (var cell in cells)
+        {
+            cell.FindNeighbours(this);
         }
     }
 
-    public void CreateCell(int x, int z, int index)
+    public void CreateCell(int x, int z, int index, float elevation)
     {
         //Swapping the x and z from the tutorial gives the right coords for flat headed hexagons
         Vector3 position;
         position.x = x * outerRad * 1.5f;
-        position.y = 0f;
+        position.y = elevation * heightScale;
         position.z = (z + x * 0.5f - x / 2) * innerRad * 2f;
-        
+
         //Using perlin generate the elevation
 
-        var cell = cells[index] = Instantiate<HexCell>(cellPrefab);
+        var cell = cells[index] = Instantiate<HexCell>(cellPrefab, Vector3.zero, Quaternion.identity);
         cell.cellType = 0;
         cell.coords = HexCoordinates.FromOffsetCoordinates(x, z);
         cell.index = index;
         // cell.text.text = cell.coords.ToStringOnSeparateLines();
         cell.text.text = index.ToString();
+        cell.Init();
         // cell.elevation = Mathf.PerlinNoise()
         // cell.Init(0, new Vector2Int(x, z), index);
 
@@ -117,19 +136,24 @@ public class HexGrid : MonoBehaviour
         }
     }
 
+    public HexCell GetCell(Vector3 pos)
+    {
+        //This returns the localposition if the vector was a child of the transform
+        pos = transform.InverseTransformPoint(pos);
+        HexCoordinates coords = HexCoordinates.FromPosition(pos);
+        int index = coords.Z + coords.X * height + coords.X / 2;
+        return cells[index];
+    }
+
     void HandleInput()
     {
         Ray inputRay = _cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(inputRay, out RaycastHit hit))
         {
             Vector3 pos = hit.point;
-            //This returns the localposition if the vector was a child of the transform
-            pos = transform.InverseTransformPoint(pos);
-            HexCoordinates coords = HexCoordinates.FromPosition(pos);
-            // int index = coords.X + coords.Z * width + coords.Z / 2;
-            int index = coords.Z + coords.X * height + coords.X / 2;
-            cells[index].ToggleCell();
-            Debug.Log("touched at " + coords.ToString() + "at :" + index);
+            var cell = GetCell(pos);
+            cell.ToggleCell();
+            // Debug.Log("touched at " + coords.ToString() + "at :" + index);
         }
     }
 
