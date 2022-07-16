@@ -1,9 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Flee : BehaviourComponent
 {
+    public string evilMans = "fox";
+    public Func<Actor, bool> actorPredicate = (a) => (a.name == "fox");
+    public LayerMask enemyLayerMask;
+
+    public string[] threats;
+    public int maxThreatDistance = 4;
     public bool threat = true;
     public int tickDuration;
     public int distToPredatorThreshold = 3;
@@ -13,6 +21,8 @@ public class Flee : BehaviourComponent
     public override bool OnTick()
     {
         base.OnTick();
+        
+        FindThreat();
         if (threat)
         {
             startled = true;
@@ -32,6 +42,20 @@ public class Flee : BehaviourComponent
             return true;
         }
         return false;
+    }
+    
+
+    public void FindThreat()
+    {
+        var threatActors = BehaviourManager.i.currentActors.Where(a=>  threats.Any(t=> a.CompareTag(t)));
+        var closestThreat = threatActors
+            .Where(t => t.currentTile.Distance(actor.currentTile) < maxThreatDistance)
+            // .Where(t => {})
+            .OrderBy(t => t.currentTile.Distance(actor.currentTile))
+            .FirstOrDefault();
+        if (closestThreat == null)
+            return;
+        threat = closestThreat;
     }
     public override void OnAction()
     {
