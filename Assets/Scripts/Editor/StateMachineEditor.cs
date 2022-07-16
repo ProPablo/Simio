@@ -7,7 +7,7 @@ public class StateMachineEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        StateMachine machine = (StateMachine)target;
+        StateMachine machine = (StateMachine) target;
         if (machine.currentState == null)
         {
             EditorGUILayout.LabelField("Current State", "nothing lol");
@@ -17,5 +17,28 @@ public class StateMachineEditor : Editor
             EditorGUILayout.LabelField("Current State", machine.currentState.stateName);
             EditorGUILayout.FloatField(machine.currentState.age);
         }
+    }
+}
+
+[CustomEditor(typeof(HexGrid), true)]
+public class HexGridEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        var obj = (HexGrid) target;
+        if (GUILayout.Button("Generate"))
+        {
+            obj.Init();
+        }
+        // if (machine.currentState == null)
+        // {
+        //     EditorGUILayout.LabelField("Current State", "nothing lol");
+        // }
+        // else
+        // {
+        //     EditorGUILayout.LabelField("Current State", machine.currentState.stateName);
+        //     EditorGUILayout.FloatField(machine.currentState.age);
+        // }
     }
 }
