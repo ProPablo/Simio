@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
 
     Vector3 pointerPos;
     Vector3 pointerTarget;
+    bool mouseDown = false;
 
     private void Awake()
     {
@@ -40,14 +41,10 @@ public class CameraController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             pointerPos = MouseInWorldCoords();
-            print(pointerPos);
-
+            mouseDown = true;
         }
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-            pointerTarget = MouseInWorldCoords();
-            transform.position = new Vector3(pointerTarget.x, transform.position.y, pointerTarget.z);
-        }
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+            mouseDown = false;
     }
 
     // returns mouse position in World coordinates for our GameObject to follow. 
@@ -66,5 +63,10 @@ public class CameraController : MonoBehaviour
         speedMultiplier *= Input.GetKey(KeyCode.LeftShift) ? 2 : 1;
         speedMultiplier *= Input.GetKey(KeyCode.LeftControl) ? 0.5f : 1;
         transform.position += moveSens * speedMultiplier * moveDir;
+        if (mouseDown)
+        {
+            pointerTarget = MouseInWorldCoords() - pointerPos;
+            transform.position -= pointerTarget;
+        }
     }
 }
