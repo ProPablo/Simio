@@ -40,8 +40,10 @@ public class BehaviourManager : MonoBehaviour
         {
             foreach (BehaviourComponent behaviour in actor.behaviours)
             {
-                behaviour.OnTick();
+                if (behaviour.OnTick())
+                    behaviour.ticks = 0;
             }
+            actor.age++;
         }
     }
     public void SpawnActor(Actor actorToSpawn)

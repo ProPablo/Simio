@@ -5,15 +5,22 @@ using UnityEngine;
 
 public class BehaviourComponent : MonoBehaviour
 {
+    //public Actor actor { get; set; }
     [HideInInspector] public Actor actor;
-    public virtual void OnAction() { }
-    public virtual void OnTick()
+    [HideInInspector] public string Name;
+    public int ticks = 0;
+    public int ticksPerAction;
+    public virtual void Start()
     {
-        actor.tickCounter--;
-        if (actor.tickCounter <= 0)
-        {
-            OnAction();
-            actor.tickCounter = actor.ticksPerAction;
-        }
+        Name = GetType().Name;
     }
+    public virtual bool OnTick()
+    {
+        return false;
+    }
+    public virtual void OnAction()
+    {
+        actor.currentHealth--;
+    }
+    //public virtual void OnCallback();
 }

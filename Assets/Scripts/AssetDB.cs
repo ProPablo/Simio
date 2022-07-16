@@ -14,7 +14,10 @@ public enum Direction
     SW,
     NW
 }
-
+public enum Diet
+{
+    PLANT, FISH, MEAT, CORPSE
+}
 public static class SimioExtensions {
     public static Direction Opposite (this Direction direction) {
         return (int)direction < 3 ? (direction + 3) : (direction - 3);
