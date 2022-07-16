@@ -40,7 +40,7 @@ public class HexCell : MonoBehaviour
     public float normalStackHeight = 5f;
     public float startingStackOffset = 1f;
     public float minStackHeight = 2f;
-    public HexCell[] Neighbours = new HexCell[6];
+    public HexCell[] neighbours = new HexCell[6];
 
     // public Stack<Actor> actorStack;
     public List<Actor> actorStack = new List<Actor>();
@@ -77,6 +77,10 @@ public class HexCell : MonoBehaviour
 
     public void FindNeighbours(HexGrid grid)
     {
+        
+    }
+    public HexCell GetNeighbor (Direction direction) {
+        return neighbours[(int)direction];
     }
 
     public void Init(CellType _cellType, Vector2Int _location, int _index)
@@ -109,6 +113,10 @@ public class HexCell : MonoBehaviour
             pos.y = startingPoint + actorRegion / 2;
             actor.transform.localPosition = pos;
         }
+    }
+    public void SetNeighbor (Direction direction, HexCell cell) {
+        neighbours[(int)direction] = cell;
+        cell.neighbours[(int)direction.Opposite()] = this;
     }
 
     public void JoinCell(Actor actor)

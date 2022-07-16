@@ -3,6 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+public enum Direction
+{
+    N,
+    NE,
+    SE,
+    S,
+    SW,
+    NW
+}
+
+public static class SimioExtensions {
+    public static Direction Opposite (this Direction direction) {
+        return (int)direction < 3 ? (direction + 3) : (direction - 3);
+    }
+}
+
 public class AssetDB : MonoBehaviour
 {
     public static AssetDB i;

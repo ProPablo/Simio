@@ -115,6 +115,18 @@ public class HexGrid : MonoBehaviour
         cell.Init();
         // cell.elevation = Mathf.PerlinNoise()
         // cell.Init(0, new Vector2Int(x, z), index);
+        
+        
+        
+        if (z > 0) {
+            cell.SetNeighbor(Direction.S, cells[index - 1]);
+        }
+        if (x > 0) {
+            //If even
+            if ((z & 1) == 0) {
+                // cell.SetNeighbor(Direction.SE, cells[i - width]);
+            }
+        }
 
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
@@ -143,6 +155,11 @@ public class HexGrid : MonoBehaviour
         HexCoordinates coords = HexCoordinates.FromPosition(pos);
         int index = coords.Z + coords.X * height + coords.X / 2;
         return cells[index];
+    }
+
+    public HexCell GetCell(HexCell currentCell, Direction dir)
+    {
+        
     }
 
     void HandleInput()

@@ -12,6 +12,7 @@ public class HexMesh : MonoBehaviour
 
     List<int> triangles;
     MeshCollider meshCollider;
+    public float meshHeight = 0.5f;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class HexMesh : MonoBehaviour
 
     private void Triangulate(HexCell cell)
     {
-        Vector3 center = cell.transform.localPosition;
+        Vector3 center = cell.transform.localPosition + Vector3.up * meshHeight;
         for (int i = 0; i < 6; i++)
         {
             var nextIndex = i + 1 < 6 ? i + 1 : 0;
@@ -68,8 +69,4 @@ public class HexMesh : MonoBehaviour
         triangles.Add(vertexIndex + 2);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }
