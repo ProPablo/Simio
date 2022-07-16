@@ -7,8 +7,14 @@ public class Actor : StateMachine
     [HideInInspector] public Animator anim;
     public RuntimeAnimatorController[] spriteVariants;
     public Direction lastDir;
-    public int ticksPerAction = 3;
-    public int tickCounter;
+    [Header("Stats")]
+    public int totalHealth;
+    public int currentHealth;
+    public int age = 0;
+    public Diet diet;
+
+    public HexCell currentTile;
+
     public BehaviourComponent[] behaviours;
     #region Animation Keys
     public static readonly int IdleDownKey = Animator.StringToHash("IdleDown");
@@ -31,8 +37,11 @@ public class Actor : StateMachine
     protected override void Start()
     {
         base.Start();
-        tickCounter = ticksPerAction;
         currentState = new IdleState(this);
         currentState.OnEnter();
+    }
+    private void LateUpdate()
+    {
+        transform.LookAt(transform.position + Camera.main.transform.forward);
     }
 }
