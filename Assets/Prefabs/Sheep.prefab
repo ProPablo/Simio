@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2433895532430418246}
   - component: {fileID: 2433895532430418245}
   - component: {fileID: 2433895532430418244}
-  - component: {fileID: 6159822467651081129}
   - component: {fileID: 6243895615757346304}
+  - component: {fileID: 6159822467651081129}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -131,22 +131,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6159822467651081129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2433895532430418243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b81cf4d9d69a4542ae376b445d3abeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actor: {fileID: 0}
-  Name: 
-  ticks: 0
-  ticksPerAction: 5
 --- !u!114 &6243895615757346304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +190,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6159822467651081129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2433895532430418243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b81cf4d9d69a4542ae376b445d3abeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 5

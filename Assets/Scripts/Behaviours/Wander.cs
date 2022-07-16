@@ -9,7 +9,7 @@ public class Wander : BehaviourComponent
     {
         base.OnTick();
         ticks++;
-        if (ticks >= ticksPerAction)
+        if (ticks > ticksPerAction)
         {
             OnAction();
             return true;

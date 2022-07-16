@@ -23,6 +23,7 @@ public class Growth : BehaviourComponent
     }
     public override bool OnTick()
     {
+        base.OnTick();
         startScale = sizeCurve.Evaluate(KongrooUtils.RemapRange(actor.age, 0, maxAge, 0, 1));
         actor.age++;
         endScale = sizeCurve.Evaluate(KongrooUtils.RemapRange(actor.age, 0, maxAge, 0, 1));
