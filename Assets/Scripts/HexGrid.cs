@@ -91,10 +91,13 @@ public class HexGrid : MonoBehaviour
             CreateCell(i, j, cellIndex++, noiseMap[i, j]);
         }
 
+        //Needs to happen after all cells filled out
         foreach (var cell in cells)
         {
-            cell.FindNeighbours(this);
+            // cell.FindNeighbours(this);
         }
+
+        // transform.position -= new Vector3(XMax, 0, ZMax);
     }
 
     public void CreateCell(int x, int z, int index, float elevation)
@@ -131,12 +134,12 @@ public class HexGrid : MonoBehaviour
                 cell.SetNeighbor(Direction.NW, cells[index - height]);
                 if (z > 0)
                 {
-                    cell.SetNeighbor(Direction.NE, cells[index - height - 1]);
+                    cell.SetNeighbor(Direction.SW, cells[index - height - 1]);
                 }
             }
             else
             {
-                cell.SetNeighbor(Direction.NE, cells[index - height]);
+                cell.SetNeighbor(Direction.SW, cells[index - height]);
                 if (z < height - 1)
                 {
                     cell.SetNeighbor(Direction.NW, cells[index - height + 1]);
@@ -164,12 +167,32 @@ public class HexGrid : MonoBehaviour
         }
     }
 
+    //Using unity collision instead because this gets exponential :/
+    HexCell[] BFS(Func<HexCell, bool> predicate)
+    {
+        return new HexCell[0];
+    }
+
     public HexCell GetCell(Vector3 pos)
     {
         //This returns the localposition if the vector was a child of the transform
         pos = transform.InverseTransformPoint(pos);
         HexCoordinates coords = HexCoordinates.FromPosition(pos);
         int index = coords.Z + coords.X * height + coords.X / 2;
+        if (index < 0 || index > cells.Length - 1) return null;
+        return cells[index];
+    }
+
+    public HexCell GetCell(HexCell curr, Vector3 dir)
+    {
+        //rad*2 = diameter
+        var neighbourLoc = curr.transform.localPosition + dir * outerRad * 2f;
+        var neighbourLocGlobal = curr.transform.position + dir * outerRad * 2f;
+        Debug.DrawLine(curr.transform.position + Vector3.up, neighbourLocGlobal + Vector3.up, Color.black, 60f);
+        neighbourLoc.y = 0f;
+        HexCoordinates coords = HexCoordinates.FromPosition(neighbourLoc);
+        int index = coords.Z + coords.X * height + coords.X / 2;
+        if (index < 0 || index > cells.Length - 1) return null;
         return cells[index];
     }
 
@@ -269,5 +292,13 @@ public struct HexCoordinates
         }
 
         return new HexCoordinates(iX, iZ);
+    }
+
+    public int DistanceTo(HexCoordinates other)
+    {
+        return
+            ((X < other.X ? other.X - X : X - other.X) +
+             (Y < other.Y ? other.Y - Y : Y - other.Y) +
+             (Z < other.Z ? other.Z - Z : Z - other.Z)) / 2;
     }
 }

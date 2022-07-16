@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 
 public enum Direction
@@ -22,6 +23,17 @@ public static class SimioExtensions {
 
 public class AssetDB : MonoBehaviour
 {
+    public Vector3[] DirectionVectors = new[]
+    {
+        new Vector3(0,0,1),
+        new Vector3(1, 0, 1),
+        new Vector3(1, 0, -1),
+        new Vector3(0,0,-1),
+        new Vector3(-1, 0, -1),
+        new Vector3(-1, 0, 1)
+        
+    };
+    
     public static AssetDB i;
     public static int dirLength => Enum.GetNames(typeof(Direction)).Length;
     private void Awake()
@@ -30,10 +42,16 @@ public class AssetDB : MonoBehaviour
         {
             i = this;
             DontDestroyOnLoad(i);
+            RunOnce();
         }
         else
         {
             Destroy(gameObject);
         }
+    }
+
+    private void RunOnce()
+    {
+        DirectionVectors = DirectionVectors.Select(v => v.normalized).ToArray();
     }
 }

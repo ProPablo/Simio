@@ -45,6 +45,11 @@ public class HexCell : MonoBehaviour
     // public Stack<Actor> actorStack;
     public List<Actor> actorStack = new List<Actor>();
 
+    public int Distance(HexCell other)
+    {
+        return coords.DistanceTo(other.coords);
+    } 
+
 
     private void Awake()
     {
@@ -77,10 +82,17 @@ public class HexCell : MonoBehaviour
 
     public void FindNeighbours(HexGrid grid)
     {
-        
+        var directions = AssetDB.i.DirectionVectors;
+        for (int i = 0; i < directions.Length; i++)
+        {
+            var neighbour = grid.GetCell(this, directions[i]);
+            neighbours[i] = neighbour;
+        }
     }
-    public HexCell GetNeighbor (Direction direction) {
-        return neighbours[(int)direction];
+
+    public HexCell GetNeighbor(Direction direction)
+    {
+        return neighbours[(int) direction];
     }
 
     public void Init(CellType _cellType, Vector2Int _location, int _index)
@@ -114,9 +126,11 @@ public class HexCell : MonoBehaviour
             actor.transform.localPosition = pos;
         }
     }
-    public void SetNeighbor (Direction direction, HexCell cell) {
-        neighbours[(int)direction] = cell;
-        cell.neighbours[(int)direction.Opposite()] = this;
+
+    public void SetNeighbor(Direction direction, HexCell cell)
+    {
+        neighbours[(int) direction] = cell;
+        cell.neighbours[(int) direction.Opposite()] = this;
     }
 
     public void JoinCell(Actor actor)
