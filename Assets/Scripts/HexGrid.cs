@@ -17,7 +17,7 @@ public class HexGrid : MonoBehaviour
 
     public float XMax => outerRad * width / 2;
     public float ZMax => outerRad * height / 2;
-    
+
 
     //using second configuration
     public Vector3[] corners;
@@ -80,7 +80,8 @@ public class HexGrid : MonoBehaviour
 
     public void CreateGrid()
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap (width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        float[,] noiseMap =
+            Noise.GenerateNoiseMap(width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
         cells = new HexCell[width * height];
         int cellIndex = 0;
@@ -115,16 +116,31 @@ public class HexGrid : MonoBehaviour
         cell.Init();
         // cell.elevation = Mathf.PerlinNoise()
         // cell.Init(0, new Vector2Int(x, z), index);
-        
-        
-        
-        if (z > 0) {
+
+
+        if (z > 0)
+        {
             cell.SetNeighbor(Direction.S, cells[index - 1]);
         }
-        if (x > 0) {
+
+        if (x > 0)
+        {
             //If even
-            if ((z & 1) == 0) {
-                // cell.SetNeighbor(Direction.SE, cells[i - width]);
+            if ((x & 1) == 0)
+            {
+                cell.SetNeighbor(Direction.NW, cells[index - height]);
+                if (z > 0)
+                {
+                    cell.SetNeighbor(Direction.NE, cells[index - height - 1]);
+                }
+            }
+            else
+            {
+                cell.SetNeighbor(Direction.NE, cells[index - height]);
+                if (z < height - 1)
+                {
+                    cell.SetNeighbor(Direction.NW, cells[index - height + 1]);
+                }
             }
         }
 
@@ -156,11 +172,6 @@ public class HexGrid : MonoBehaviour
         int index = coords.Z + coords.X * height + coords.X / 2;
         return cells[index];
     }
-
-    // public HexCell GetCell(HexCell currentCell, Direction dir)
-    // {
-    //     
-    // }
 
     void HandleInput()
     {
