@@ -301,7 +301,7 @@ MonoBehaviour:
   tickDur: 0.5
   slerpCentre: 0.25
   actorSpawns:
-  - {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+  - {fileID: 6759938373438735494, guid: a3f92e813a28f434cba1cd2bf5fa3bf7, type: 3}
   currentActors: []
 --- !u!4 &1042006237
 Transform:
