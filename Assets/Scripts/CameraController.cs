@@ -41,20 +41,23 @@ public class CameraController : MonoBehaviour
         {
             pointerPos = MouseInWorldCoords();
             print(pointerPos);
+
         }
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            pointerTarget = -pointerPos + MouseInWorldCoords();
-            transform.position = new Vector3(pointerPos.x - pointerTarget.x, transform.position.y, pointerPos.z - pointerTarget.z);
+            pointerTarget = MouseInWorldCoords();
+            transform.position = new Vector3(pointerTarget.x, transform.position.y, pointerTarget.z);
         }
     }
 
     // returns mouse position in World coordinates for our GameObject to follow. 
     private Vector3 MouseInWorldCoords()
     {
-        var screenMousePos = Input.mousePosition;
-        screenMousePos.y = 0;
-        return Camera.main.ScreenToWorldPoint(screenMousePos);
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (plane.Raycast(ray, out float distanceToPlane))
+            return ray.GetPoint(distanceToPlane);
+        else return Vector3.zero;
     }
 
     private void FixedUpdate()
