@@ -190,9 +190,9 @@ MonoBehaviour:
   index: 0
   text: {fileID: 4248809473983540529}
   canvas: {fileID: 0}
-  normalStackHeight: 5
+  normalStackHeight: 2
   startingStackOffset: 1
-  minStackHeight: 0
+  minStackHeight: 0.5
   neighbours:
   - {fileID: 0}
   - {fileID: 0}

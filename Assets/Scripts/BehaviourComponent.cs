@@ -8,7 +8,7 @@ public class BehaviourComponent : MonoBehaviour
     //public Actor actor { get; set; }
     [HideInInspector] public Actor actor;
     [HideInInspector] public string Name;
-    public int ticks = 0;
+    [HideInInspector] public int ticks = 0;
     public int ticksPerAction;
     public virtual void Start()
     {
@@ -22,5 +22,4 @@ public class BehaviourComponent : MonoBehaviour
     {
         actor.currentHealth--;
     }
-    //public virtual void OnCallback();
 }

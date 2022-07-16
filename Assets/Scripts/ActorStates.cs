@@ -54,17 +54,22 @@ public class IdleState : ActorStates
 public class MoveState : ActorStates
 {
     Vector3 currentPos;
-    readonly Vector3 targetPos;
-    public MoveState(Actor sm, Vector3 _targetPos) : base(sm)
+    readonly HexCell targetCell;
+    readonly Direction targetDir;
+    Vector3 targetPos;
+    public MoveState(Actor sm, Direction _targetDir, HexCell _targetCell) : base(sm)
     {
         duration = BehaviourManager.i.tickDur;
-        targetPos = _targetPos;
+        targetDir = _targetDir;
+        targetCell = _targetCell;
     }
     public override void OnEnter()
     {
         base.OnEnter();
         currentPos = actor.transform.position;
-        switch (actor.lastDir)
+        targetPos = targetCell.transform.position + new Vector3(0, targetCell.startingStackOffset, 0);
+        actor.lastDir = targetDir;
+        switch (targetDir)
         {
             case Direction.N:
                 actor.anim.PlayInFixedTime(Actor.MoveUpKey);
@@ -85,6 +90,8 @@ public class MoveState : ActorStates
                 actor.anim.PlayInFixedTime(Actor.MoveLeftKey);
                 break;
         }
+        actor.currentTile.LeaveCell(actor);
+        actor.currentTile = targetCell;
     }
     public override void Update()
     {
@@ -94,6 +101,7 @@ public class MoveState : ActorStates
     public override void OnExit()
     {
         base.OnExit();
-        actor.transform.position = targetPos;
+        targetCell.JoinCell(actor);
+        //actor.transform.position = targetPos;
     }
 }

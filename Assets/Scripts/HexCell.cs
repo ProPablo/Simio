@@ -5,13 +5,15 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public enum CellType
 {
     GRASS,
     SAND,
     WATER,
+    SEA,
+    ROCK
 }
 
 [System.Serializable]
@@ -39,7 +41,8 @@ public class HexCell : MonoBehaviour
     public Canvas canvas;
     public float normalStackHeight = 5f;
     public float startingStackOffset = 1f;
-    public float minStackHeight = 2f;
+    public float minStackHeight;
+    //public float stackHeight;
     public HexCell[] neighbours = new HexCell[6];
 
     // public Stack<Actor> actorStack;
@@ -48,7 +51,7 @@ public class HexCell : MonoBehaviour
     public int Distance(HexCell other)
     {
         return coords.DistanceTo(other.coords);
-    } 
+    }
 
 
     private void Awake()
@@ -80,19 +83,33 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    public void FindNeighbours(HexGrid grid)
-    {
-        var directions = AssetDB.i.DirectionVectors;
-        for (int i = 0; i < directions.Length; i++)
-        {
-            var neighbour = grid.GetCell(this, directions[i]);
-            neighbours[i] = neighbour;
-        }
-    }
+    //public void FindNeighbours(HexGrid grid)
+    //{
+    //    var directions = AssetDB.i.DirectionVectors;
+    //    for (int i = 0; i < directions.Length; i++)
+    //    {
+    //        var neighbour = grid.GetCell(this, directions[i]);
+    //        neighbours[i] = neighbour;
+    //    }
+    //}
 
     public HexCell GetNeighbor(Direction direction)
     {
-        return neighbours[(int) direction];
+        return neighbours[(int)direction];
+    }
+    public (HexCell, Direction) SelectRandomNeighbor(CellType[] cellTypes)
+    {
+        Direction tileDir;
+        HexCell neighbourTile;
+        int nCount = 0;
+        do
+        {
+            tileDir = (Direction)Random.Range(0, AssetDB.dirLength);
+            neighbourTile = GetNeighbor(tileDir);
+            if (!cellTypes.Contains(neighbourTile.cellType)) neighbourTile = null;
+        }
+        while (neighbourTile == null && nCount++ < 6);
+        return (neighbourTile, tileDir);
     }
 
     public void Init(CellType _cellType, Vector2Int _location, int _index)
@@ -112,38 +129,64 @@ public class HexCell : MonoBehaviour
     {
         selectImage.enabled = isSelected;
     }
-
+    private void Update()
+    {
+        if (actorStack.Count == 0) return;
+        RearrangeStack();
+        //var actorRegion = KongrooUtils.RemapRange(maxStackHeight / actorStack.Count, 0, 1, minStackHeight, maxStackHeight);
+        //var actors = actorStack.ToArray();
+        //for (int i = 0; i < actors.Length; i++)
+        //{
+        //    var actor = actors[i];
+        //    var startingPoint = startingStackOffset + transform.position.y;
+        //    var pos = actor.transform.localPosition;
+        //    pos.y = startingPoint + actorRegion * i;
+        //    actor.transform.localPosition = pos;
+        //}
+        //RearrangeStack();
+    }
     private void RearrangeStack()
     {
-        var actorRegion = Mathf.Clamp(normalStackHeight / actorStack.Count, minStackHeight, float.MaxValue);
         var actors = actorStack.ToArray();
+
         for (int i = 0; i < actors.Length; i++)
         {
-            var actor = actors[i];
-            var startingPoint = actorRegion * i + startingStackOffset;
-            var pos = actor.transform.localPosition;
-            pos.y = startingPoint + actorRegion / 2;
-            actor.transform.localPosition = pos;
+            var pos = Vector3.zero;
+            pos.y = startingStackOffset + i * minStackHeight;
+            actors[i].transform.localPosition = pos; 
         }
+
+        //var actorRegion = Mathf.Clamp(normalStackHeight / actorStack.Count, minStackHeight, float.MaxValue);
+        //for (int i = 0; i < actors.Length; i++)
+        //{
+        //    var actor = actors[i];
+        //    var startingPoint = actorRegion * i + startingStackOffset;
+        //    var pos = actor.transform.localPosition;
+        //    pos.y = startingPoint + actorRegion / 2;
+
+            //    actor.transform.localPosition = pos;
+            //}
     }
 
     public void SetNeighbor(Direction direction, HexCell cell)
     {
-        neighbours[(int) direction] = cell;
-        cell.neighbours[(int) direction.Opposite()] = this;
+        neighbours[(int)direction] = cell;
+        cell.neighbours[(int)direction.Opposite()] = this;
     }
 
     public void JoinCell(Actor actor)
     {
         // actorStack.Push(actor);
+        actor.transform.SetParent(transform, false);
         actorStack.Add(actor);
-        RearrangeStack();
+        //RearrangeStack();
     }
 
     public void LeaveCell(Actor actor)
     {
         //readjust all animals in stack
+        actor.transform.SetParent(null);
         actorStack.Remove(actor);
-        RearrangeStack();
+        //RearrangeStack();
     }
 }

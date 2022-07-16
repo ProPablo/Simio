@@ -41,14 +41,19 @@ public class BehaviourManager : MonoBehaviour
             foreach (BehaviourComponent behaviour in actor.behaviours)
             {
                 if (behaviour.OnTick())
+                {
                     behaviour.ticks = 0;
+                    actor.currentBehaviour = behaviour.Name;
+                }
             }
-            actor.age++;
         }
     }
     public void SpawnActor(Actor actorToSpawn)
     {
-        Actor spawned = Instantiate(actorToSpawn, transform.position, Quaternion.identity);
+        var spawnPos = HexGrid.i.GetCell(Vector3.zero);
+        Actor spawned = Instantiate(actorToSpawn, spawnPos.transform.position, Quaternion.identity);
         currentActors.Add(spawned);
+        spawned.currentTile = spawnPos;
+        spawned.currentTile.JoinCell(spawned);
     }
 }

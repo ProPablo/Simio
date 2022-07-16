@@ -9,7 +9,7 @@ public class Hibernate : BehaviourComponent
     public override bool OnTick()
     {
         base.OnTick();
-        if (actor.currentHealth < Mathf.FloorToInt(actor.totalHealth * healthThreshold))
+        if (actor.currentHealth < Mathf.FloorToInt(actor.totalHealthScaled * healthThreshold))
         {
             ticks++;
         }
@@ -23,7 +23,7 @@ public class Hibernate : BehaviourComponent
     public override void OnAction()
     {
         actor.currentHealth++;
-        if (actor.currentHealth >= actor.totalHealth)
+        if (actor.currentHealth >= actor.totalHealthScaled)
             ticks = 0;
     }
 }

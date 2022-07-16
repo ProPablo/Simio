@@ -130,7 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398d85723335a3c43a23dee3fc4acedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
+  xOffset: 5
+  zMinOffset: 10
+  zMaxOffset: 0
   lerpDur: 10
   minFov: 20
   maxFov: 80
