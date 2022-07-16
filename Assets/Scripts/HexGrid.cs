@@ -157,10 +157,10 @@ public class HexGrid : MonoBehaviour
         return cells[index];
     }
 
-    public HexCell GetCell(HexCell currentCell, Direction dir)
-    {
-        
-    }
+    // public HexCell GetCell(HexCell currentCell, Direction dir)
+    // {
+    //     
+    // }
 
     void HandleInput()
     {
