@@ -25,11 +25,24 @@ public class HexGridEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        base.OnInspectorGUI();
+        // base.OnInspectorGUI();
         var obj = (HexGrid) target;
+        if (DrawDefaultInspector())
+        {
+            if (obj.autoUpdate)
+            {
+                obj.Init();
+            }
+        }
         if (GUILayout.Button("Generate"))
         {
             obj.Init();
+        }
+
+        if (GUILayout.Button("Clear"))
+        {
+            obj.ClearGrid();
+            
         }
         // if (machine.currentState == null)
         // {
