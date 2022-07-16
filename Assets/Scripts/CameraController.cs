@@ -19,18 +19,12 @@ public class CameraController : MonoBehaviour
     public float xBorder;
     public float zBorder;
 
-    bool dragging;
-    Vector3 pointerDisplacement;
-    float zDisplacement;
+    Vector3 pointerPos;
+    Vector3 pointerTarget;
 
     private void Awake()
     {
         cam = GetComponent<CinemachineVirtualCamera>();
-    }
-    public void OnMouseDown()
-    {
-        pointerDisplacement = -transform.position + MouseInWorldCoords();
-        dragging = true;
     }
     void Update()
     {
@@ -43,16 +37,23 @@ public class CameraController : MonoBehaviour
         moveDir.x = Mathf.Clamp(moveDir.x, transform.position.x < -xBorder ? 0 : -1, transform.position.x > xBorder ? 0 : 1);
         moveDir.z = Mathf.Clamp(moveDir.z, transform.position.z < -zBorder ? 0 : -1, transform.position.z > zBorder ? 0 : 1);
 
-        if (!dragging) return;
-        var mousePos = MouseInWorldCoords();
-        transform.position = new Vector3(mousePos.x - pointerDisplacement.x, mousePos.y - pointerDisplacement.y, transform.position.z);
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            pointerPos = MouseInWorldCoords();
+            print(pointerPos);
+        }
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            pointerTarget = -pointerPos + MouseInWorldCoords();
+            transform.position = new Vector3(pointerPos.x - pointerTarget.x, transform.position.y, pointerPos.z - pointerTarget.z);
+        }
     }
 
     // returns mouse position in World coordinates for our GameObject to follow. 
     private Vector3 MouseInWorldCoords()
     {
         var screenMousePos = Input.mousePosition;
-        screenMousePos.z = zDisplacement;
+        screenMousePos.y = 0;
         return Camera.main.ScreenToWorldPoint(screenMousePos);
     }
 
