@@ -16,8 +16,8 @@ public class HexGrid : MonoBehaviour
 
     public static float InnerRad => i.innerRad;
 
-    public float XMax => (outerRad * 2) * width / 2;
-    public float ZMax => (innerRad * 2) * height / 2;
+    public float XMax => (outerRad * 2) * width;
+    public float ZMax => (innerRad * 2) * height;
 
     private HexCellPriorityQueue queue = new HexCellPriorityQueue();
 
@@ -28,7 +28,7 @@ public class HexGrid : MonoBehaviour
     public bool autoUpdate = true;
 
     public HexCell cellPrefab;
-    private HexCell[] cells;
+    [HideInInspector] public HexCell[] cells;
     public HexMesh mesh;
     public static HexGrid i;
     private Camera _cam;
@@ -60,6 +60,7 @@ public class HexGrid : MonoBehaviour
 
     public void Init()
     {
+        seed = Random.Range(0, int.MaxValue);
         corners = new[]
         {
             new Vector3(-0.5f * outerRad, 0, innerRad),

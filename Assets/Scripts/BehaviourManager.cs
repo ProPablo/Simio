@@ -44,7 +44,7 @@ public class BehaviourManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             RunTick();
         }

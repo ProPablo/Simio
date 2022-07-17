@@ -66,7 +66,7 @@ MonoBehaviour:
   persistance: 0.129
   lacunarity: 1
   seed: 51
-  offset: {x: -4.22, y: 0}
+  offset: {x: 0, y: 0}
   heightScale: 1.5
   currentlySelected: {fileID: 0}
 --- !u!33 &1007123975959537782

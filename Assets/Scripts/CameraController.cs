@@ -22,10 +22,24 @@ public class CameraController : MonoBehaviour
     Vector3 pointerTarget;
     bool mouseDown = false;
 
+    public Vector3 maxMovement;
+
     private void Awake()
     {
         cam = GetComponent<CinemachineVirtualCamera>();
         rb = GetComponent<Rigidbody>();
+    }
+    private void Start()
+    {
+        //var bounds = HexGrid.i.gameObject.AddComponent<BoxCollider>();
+        //var size = bounds.size;
+        //size.y = 200f;
+        //bounds.size = size;
+        //cam.GetComponent<CinemachineConfiner>().m_BoundingVolume = bounds;
+
+        maxMovement = HexGrid.i.cells[HexGrid.i.cells.Length - 1].transform .position;
+        maxMovement.y = transform.position.y;
+        transform.position = maxMovement / 2;
     }
     void Update()
     {
@@ -35,8 +49,8 @@ public class CameraController : MonoBehaviour
         cam.m_Lens.FieldOfView = Mathf.Lerp(cam.m_Lens.FieldOfView, lerpTarget, lerpDur * Time.deltaTime);
 
         moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-        moveDir.x = Mathf.Clamp(moveDir.x, transform.position.x < (-HexGrid.i.width / 2 - borderOffset) ? 0 : -1, transform.position.x > (HexGrid.i.width / 2 + borderOffset) ? 0 : 1);
-        moveDir.z = Mathf.Clamp(moveDir.z, transform.position.z < (-HexGrid.i.height / 2 - borderOffset) ? 0 : -1, transform.position.z > (HexGrid.i.height / 2 + borderOffset) ? 0 : 1);
+        moveDir.x = Mathf.Clamp(moveDir.x, transform.position.x < -borderOffset ? 0 : -1, transform.position.x > (maxMovement.x + borderOffset) ? 0 : 1);
+        moveDir.z = Mathf.Clamp(moveDir.z, transform.position.z < -borderOffset ? 0 : -1, transform.position.z > (maxMovement.z + borderOffset) ? 0 : 1);
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -64,7 +78,8 @@ public class CameraController : MonoBehaviour
         {
             pointerTarget = MouseInWorldCoords() - pointerPos;
             Vector3 targetPos = transform.position - pointerTarget;
-            rb.MovePosition(new Vector3(Mathf.Clamp(targetPos.x, -HexGrid.i.width / 2 - borderOffset, HexGrid.i.width / 2 + borderOffset), transform.position.y, Mathf.Clamp(targetPos.z, -HexGrid.i.height / 2 - borderOffset, HexGrid.i.height / 2 + borderOffset)));
+            rb.MovePosition(new Vector3(Mathf.Clamp(targetPos.x, -borderOffset, maxMovement.x + borderOffset), transform.position.y, Mathf.Clamp(targetPos.z, -borderOffset, maxMovement.z + borderOffset)));
+            //rb.MovePosition(targetPos);
         }
         else
             rb.MovePosition(transform.position + moveSens * speedMultiplier * moveDir);
