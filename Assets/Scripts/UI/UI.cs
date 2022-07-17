@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour
 {
     public static UI i;
+    public Text tickText;
     public Dice[] dice;
     public int diceRoll;
     private void Awake()
@@ -19,5 +20,10 @@ public class UI : MonoBehaviour
             item.RollDice();
         }
         diceRoll = 0;
+    }
+    private void Update()
+    {
+        int ticks = BehaviourManager.i.totalTicks;
+        tickText.text = $"Day {1 + Mathf.CeilToInt(ticks / 60)}";
     }
 }

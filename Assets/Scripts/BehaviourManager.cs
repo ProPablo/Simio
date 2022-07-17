@@ -14,7 +14,7 @@ public class BehaviourManager : MonoBehaviour
     public float slerpCentre = 0.25f;
     public Actor[] actorSpawns;
     public List<Actor> currentActors = new List<Actor>();
-    public Actor corpseActor;
+    public Actor corpseActor, meatActor;
     public Image pieCirclePrefab;
     private List<Image> pieCircles = new List<Image>();
     public int totalTicks = 0;
@@ -22,14 +22,25 @@ public class BehaviourManager : MonoBehaviour
     public Actor samplePrefab;
     private BehaviourComponent[] systemBehaviors;
 
-    [Header("UI")] public TextMeshProUGUI tickText;
+    public float startSpawnWeight = 0.15f;
 
     private void Awake()
     {
         i = this;
         systemBehaviors = GetComponents<BehaviourComponent>();
     }
-
+    private void Start()
+    {
+        foreach (var item in HexGrid.i.cells)
+        {
+            if (Random.value < startSpawnWeight)
+            {
+                Actor spawn = actorSpawns[Random.Range(0, actorSpawns.Length)];
+                if (spawn.walkable.Contains(item.cellType))
+                    SpawnActor(spawn, item);
+            }
+        }
+    }
 
     private void Update()
     {
@@ -95,7 +106,6 @@ public class BehaviourManager : MonoBehaviour
             }
         }
 
-        UpdateUI();
         // foreach (Actor actor in currentActors) {
         //     bool isTicked = false;
         //     foreach (BehaviourComponent behaviour in actor.behaviours)
@@ -118,10 +128,6 @@ public class BehaviourManager : MonoBehaviour
     // {
     // }
 
-    private void UpdateUI()
-    {
-        tickText.text = $"Ticks: {totalTicks}";
-    }
 
     public void SpawnActor(Actor actorToSpawn, HexCell spawnPos)
     {
@@ -137,12 +143,13 @@ public class BehaviourManager : MonoBehaviour
     {
     }
 
-    public void SpawnRandomActor()
+    public void SpawnRandomActor(HexCell selectedTile = null)
     {
-        var selectedTile = HexGrid.i.currentlySelected;
+        if (selectedTile == null)
+            selectedTile = HexGrid.i.currentlySelected;
         var spawnByTile = actorSpawns.Where(a => (a.walkable.Contains(selectedTile.cellType))).ToList().RandomElement();
         if (spawnByTile == null) return;
-        SpawnActor(spawnByTile, HexGrid.i.currentlySelected);
+        SpawnActor(spawnByTile, selectedTile);
     }
 
     public void DeathEvent(StateMachine sm)
@@ -154,5 +161,6 @@ public class BehaviourManager : MonoBehaviour
     public void SpawnCorpse(HexCell tile)
     {
         SpawnActor(corpseActor, tile);
+        SpawnActor(meatActor, tile);
     }
 }

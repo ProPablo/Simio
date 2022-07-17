@@ -311,7 +311,7 @@ MonoBehaviour:
   ticksPerAction: 2
   hungerThreshold: 0.5
   breedChance: 0.2
-  minAge: 500
+  minAge: 600
   spawnPrefab: {fileID: 3550300569989456769}
 --- !u!114 &1693519723795514102
 MonoBehaviour:

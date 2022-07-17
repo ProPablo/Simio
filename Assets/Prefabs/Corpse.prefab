@@ -53,7 +53,7 @@ MonoBehaviour:
   foodParticles: {fileID: 0}
   spriteVariants:
   - {fileID: 9100000, guid: dab07b884b163ed4e994cb6032c1721b, type: 2}
-  baseHealth: 100
+  baseHealth: 15
   maxAge: 1000
   baseAttack: 30
   diet: 3
