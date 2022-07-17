@@ -259,10 +259,10 @@ MonoBehaviour:
   actor: {fileID: 0}
   Name: 
   ticks: 0
-  ticksPerAction: 0
-  hungerThreshold: 0.95
-  breedChance: 0.5
-  minAge: 100
+  ticksPerAction: 12
+  hungerThreshold: 0.424
+  breedChance: 0.3
+  minAge: 120
   spawnPrefab: {fileID: 3142157470923226773}
 --- !u!114 &4643624384786519451
 MonoBehaviour:

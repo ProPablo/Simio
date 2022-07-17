@@ -16,15 +16,23 @@ public class BehaviourManager : MonoBehaviour
     public Actor corpseActor;
     public Image pieCirclePrefab;
     private List<Image> pieCircles = new List<Image>();
+
+    public Actor samplePrefab;
+
     private void Awake()
     {
         i = this;
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
             //SpawnActor(actorSpawns[Random.Range(0, actorSpawns.Length)]);
             SpawnRandomActor();
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SpawnActor(samplePrefab, HexGrid.i.currentlySelected);
+        }
 
         if (enableTime)
         {
@@ -35,15 +43,19 @@ public class BehaviourManager : MonoBehaviour
                 RunTick();
             }
         }
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             RunTick();
         }
     }
+
     void RunTick()
     {
-        foreach (Actor actor in currentActors)
+        var currentActorCount = currentActors.Count;
+        for (int j = 0; j < currentActorCount; j++)
         {
+            var actor = currentActors[j];
             bool isTicked = false;
             foreach (BehaviourComponent behaviour in actor.behaviours)
             {
@@ -57,10 +69,26 @@ public class BehaviourManager : MonoBehaviour
                     behaviour.ticks = 0;
                     actor.currentBehaviour = behaviour.Name;
                 }
-                
             }
         }
+        // foreach (Actor actor in currentActors) {
+        //     bool isTicked = false;
+        //     foreach (BehaviourComponent behaviour in actor.behaviours)
+        //     {
+        //         if (isTicked)
+        //         {
+        //             behaviour.ticks = 0;
+        //         }
+        //         else if (behaviour.OnTick())
+        //         {
+        //             isTicked = true;
+        //             behaviour.ticks = 0;
+        //             actor.currentBehaviour = behaviour.Name;
+        //         }
+        //     }
+        // }
     }
+
     public void SpawnActor(Actor actorToSpawn, HexCell spawnPos)
     {
         Actor spawned = Instantiate(actorToSpawn, spawnPos.transform.position, Quaternion.identity);
@@ -73,8 +101,6 @@ public class BehaviourManager : MonoBehaviour
 
     private void SetPieChart()
     {
-        
-        
     }
 
     public void SpawnRandomActor()
@@ -84,11 +110,13 @@ public class BehaviourManager : MonoBehaviour
         if (spawnByTile == null) return;
         SpawnActor(spawnByTile, HexGrid.i.currentlySelected);
     }
+
     public void DeathEvent(StateMachine sm)
     {
         currentActors.Remove(sm as Actor);
         sm.deathEvent -= DeathEvent;
     }
+
     public void SpawnCorpse(HexCell tile)
     {
         SpawnActor(corpseActor, tile);
