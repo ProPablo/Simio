@@ -103,7 +103,7 @@ public class HexGrid : MonoBehaviour
         currentlySelected = cells[0];
         currentlySelected.SelectCell(true);
 
-        //transform.position = new Vector3(-XMax, 0, -ZMax);
+        //transform.position = new Vector3(-width / 2, 0, -height / 2);
         //transform.position = Vector3.zero;
     }
 

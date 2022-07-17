@@ -125,3 +125,15 @@ public class AlertedMove : MoveState
         actor.alertSprite.enabled = false;
     }
 }
+//public class AttackState : IdleState
+//{
+//    public AttackState(Actor sm, Direction _targetDir, HexCell _targetCell) : base(sm, _targetDir, _targetCell)
+//    {
+//        duration = BehaviourManager.i.tickDur;
+//    }
+//    public override void OnEnter()
+//    {
+//        base.OnEnter();
+//        actor.ps.Emit(1);
+//    }
+//}

@@ -6,7 +6,7 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
     public BaseState currentState;
-    public event System.Action deathEvent;
+    public event System.Action<StateMachine> deathEvent;
 
     protected virtual void Start()
     {
@@ -24,11 +24,11 @@ public class StateMachine : MonoBehaviour
     }
     public void Die()
     {
-        deathEvent?.Invoke();
+        deathEvent?.Invoke(this);
     }
-    public void Despawn(Object obj = null)
+    public virtual void Despawn(Object obj = null)
     {
-        deathEvent?.Invoke();
+        deathEvent?.Invoke(this);
         if (obj == null)
             Destroy(gameObject);
         else

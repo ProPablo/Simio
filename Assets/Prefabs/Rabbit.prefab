@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5377489855990010879, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: ticksPerAction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6159822467651081129, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: ticksPerAction
       value: 4

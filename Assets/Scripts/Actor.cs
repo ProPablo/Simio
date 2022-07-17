@@ -55,5 +55,13 @@ public class Actor : StateMachine
     private void LateUpdate()
     {
         transform.LookAt(transform.position + Camera.main.transform.forward);
+        if (currentHealth <= 0)
+            Despawn();
+    }
+    public override void Despawn(Object obj = null)
+    {
+        BehaviourManager.i.SpawnCorpse(currentTile);
+        currentTile.LeaveCell(this);
+        base.Despawn(obj);
     }
 }

@@ -62,7 +62,7 @@ MonoBehaviour:
   baseAttack: 30
   diet: 0
   type: 1
-  walkable: 000000000100000002000000
+  walkable: 0000000001000000
   totalHealthScaled: 0
   currentHealth: 0
   currentAge: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   actor: {fileID: 0}
   Name: 
   ticks: 0
-  ticksPerAction: 5
+  ticksPerAction: 6
 --- !u!198 &633411086427810504
 ParticleSystem:
   m_ObjectHideFlags: 0

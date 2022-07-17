@@ -20,6 +20,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: ab5c7f415fd2ff24285fded6dd5f50a0, type: 2}
     - target: {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: walkable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: walkable.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: walkable.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: spriteVariants.Array.data[0]
       value: 
       objectReference: {fileID: 9100000, guid: ab5c7f415fd2ff24285fded6dd5f50a0, type: 2}
