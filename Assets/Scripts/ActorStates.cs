@@ -118,15 +118,15 @@ public class AlertedMove : MoveState
         actor.ps.Emit(1);
     }
 }
-//public class AttackState : IdleState
-//{
-//    public AttackState(Actor sm, Direction _targetDir, HexCell _targetCell) : base(sm, _targetDir, _targetCell)
-//    {
-//        duration = BehaviourManager.i.tickDur;
-//    }
-//    public override void OnEnter()
-//    {
-//        base.OnEnter();
-//        actor.ps.Emit(1);
-//    }
-//}
+public class AttackState : IdleState
+{
+    public AttackState(Actor sm) : base(sm)
+    {
+        duration = BehaviourManager.i.tickDur;
+    }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        actor.ps.Emit(1);
+    }
+}
