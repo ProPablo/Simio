@@ -71,7 +71,7 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   currentBehaviour: 
   behaviours: []
-  alertSprite: {fileID: 0}
+  alertSprite: {fileID: 3336162828583303200}
 --- !u!95 &2433895532430418245
 Animator:
   serializedVersion: 4

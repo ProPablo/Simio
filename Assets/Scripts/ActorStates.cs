@@ -116,7 +116,7 @@ public class AlertedMove : MoveState
     {
         base.OnEnter();
         // actor.ps.Emit(1);
-        actor.alertSprite.enabled = false;
+        actor.alertSprite.enabled = true;
     }
 
     public override void OnExit()

@@ -43,7 +43,7 @@ public class Actor : StateMachine
         anim.runtimeAnimatorController = spriteVariants[Random.Range(0, spriteVariants.Length)];
         foreach (var behaviour in behaviours)
             behaviour.actor = this;
-        alertSprite = GetComponentInChildren<SpriteRenderer>();
+        // alertSprite = GetComponentInChildren<SpriteRenderer>();
     }
     protected override void Start()
     {
