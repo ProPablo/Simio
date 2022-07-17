@@ -66,8 +66,8 @@ public class HexCell : MonoBehaviour
         //Get components to populate in here
         canvas = GetComponentInChildren<Canvas>();
         //text = canvas.GetComponentInChildren<TextMeshProUGUI>();
-        selectImage = canvas.GetComponentInChildren<Image>();
-        canvas.gameObject.SetActive(false);
+        selectImage = transform.GetComponentInChildren<Image>();
+        // canvas.gameObject.SetActive(false);
         selectImage.enabled = false;
     }
 
