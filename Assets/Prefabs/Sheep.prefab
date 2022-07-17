@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6243895615757346304}
   - component: {fileID: 5377489855990010879}
   - component: {fileID: 9202516807364039744}
+  - component: {fileID: 4467435170989025662}
   - component: {fileID: 5344848357947984456}
   - component: {fileID: 6159822467651081129}
   m_Layer: 0
@@ -243,6 +244,26 @@ MonoBehaviour:
   ticksPerAction: 2
   hungerThreshold: 0.95
   consumeRate: 5
+--- !u!114 &4467435170989025662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2433895532430418243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309d84579486c6741b2cd6114ff46798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 2
+  hungerThreshold: 0.75
+  breedChance: 0.3
+  minAge: 350
+  spawnPrefab: {fileID: 2433895532430418246}
 --- !u!114 &5344848357947984456
 MonoBehaviour:
   m_ObjectHideFlags: 0

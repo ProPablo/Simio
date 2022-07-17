@@ -99,6 +99,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4467435170989025662, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: minAge
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467435170989025662, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: breedChance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467435170989025662, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: spawnPrefab
+      value: 
+      objectReference: {fileID: 4060757241187201074}
+    - target: {fileID: 4467435170989025662, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: hungerThreshold
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5344848357947984456, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: seekDistance
       value: 10
@@ -117,3 +133,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+--- !u!114 &4060757241187201074 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+  m_PrefabInstance: {fileID: 1845449063733006708}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f67508fe02ff64c8da8b3ae7e3fa17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

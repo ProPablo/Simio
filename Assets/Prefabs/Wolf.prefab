@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 62382311923758280}
   - component: {fileID: 62382311923758281}
   - component: {fileID: 8628204802247144333}
+  - component: {fileID: 1013051169736925354}
   - component: {fileID: 3870552374009134212}
   - component: {fileID: 6590255932525456060}
   - component: {fileID: 7763046867383502450}
@@ -212,6 +213,26 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1013051169736925354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62382311923758286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309d84579486c6741b2cd6114ff46798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 2
+  hungerThreshold: 0.75
+  breedChance: 0.5
+  minAge: 400
+  spawnPrefab: {fileID: 62382311923758283}
 --- !u!114 &3870552374009134212
 MonoBehaviour:
   m_ObjectHideFlags: 0
