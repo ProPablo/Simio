@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &676056735313658822
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1604684852917068178, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: diet
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604684852917068178, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: spriteVariants.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1604684852917068178, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: spriteVariants.Array.data[0]
+      value: 
+      objectReference: {fileID: 9100000, guid: 52be03cf9943c804eb871910406b1d1a, type: 2}
+    - target: {fileID: 1604684852917068178, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: spriteVariants.Array.data[1]
+      value: 
+      objectReference: {fileID: 9100000, guid: 5a4b541eaac4e014e80e64323f4be59d, type: 2}
+    - target: {fileID: 1604684852917068178, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: spriteVariants.Array.data[2]
+      value: 
+      objectReference: {fileID: 9100000, guid: 147e5db60fbc24d4d981b5d00a87ba59, type: 2}
+    - target: {fileID: 3277380015792448992, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_Name
+      value: Plant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999931321075230155, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -465668650, guid: 09150821e43a91044b58e3e473372d2f, type: 3}
+    - target: {fileID: 7210358888675491537, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 52be03cf9943c804eb871910406b1d1a, type: 2}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761020519242048228, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a4c38e3236f7e864cae05cd56a8db07b, type: 3}
