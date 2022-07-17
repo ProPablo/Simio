@@ -77,6 +77,10 @@ public static class KongrooUtils
     {
         return list[Random.Range(0, list.Count)];
     }
+    public static T RandomElement<T>(this T[] arr)
+    {
+        return arr[Random.Range(0, arr.Length)];
+    }
 
     //Extension method exists on class instance
     public static float GetTransformSum(this Transform tf)

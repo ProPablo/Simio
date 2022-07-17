@@ -28,7 +28,7 @@ public class HexGrid : MonoBehaviour
     public bool autoUpdate = true;
 
     public HexCell cellPrefab;
-    private HexCell[] cells;
+    public HexCell[] cells;
     public HexMesh mesh;
     public static HexGrid i;
     private Camera _cam;
