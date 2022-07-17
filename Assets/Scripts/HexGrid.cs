@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,6 +19,7 @@ public class HexGrid : MonoBehaviour
     public float XMax => (outerRad * 2) * width / 2;
     public float ZMax => (outerRad * 2) * height / 2;
 
+    private HexCellPriorityQueue queue = new HexCellPriorityQueue();
 
     //using second configuration
     public Vector3[] corners;
@@ -84,10 +86,10 @@ public class HexGrid : MonoBehaviour
         cells = new HexCell[width * height];
         int cellIndex = 0;
         for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
-            {
-                CreateCell(i, j, cellIndex++, noiseMap[i, j]);
-            }
+        for (int j = 0; j < height; j++)
+        {
+            CreateCell(i, j, cellIndex++, noiseMap[i, j]);
+        }
 
         //Needs to happen after all cells filled out
         foreach (var cell in cells)
@@ -97,7 +99,7 @@ public class HexGrid : MonoBehaviour
             // cell.FindNeighbours(this);
         }
 
-        transform.position = -1* new Vector3(XMax, 0, ZMax) / 2;
+        transform.position = -1 * new Vector3(XMax, 0, ZMax) / 2;
     }
 
     public void CreateCell(int x, int z, int index, float elevation)
@@ -108,8 +110,6 @@ public class HexGrid : MonoBehaviour
         position.y = elevation * heightScale;
         position.z = (z + x * 0.5f - x / 2) * innerRad * 2f;
 
-        //Using perlin generate the elevation
-
         var cell = cells[index] = Instantiate<HexCell>(cellPrefab, Vector3.zero, Quaternion.identity);
         cell.cellType = 0;
         cell.coords = HexCoordinates.FromOffsetCoordinates(x, z);
@@ -117,10 +117,6 @@ public class HexGrid : MonoBehaviour
         // cell.text.text = cell.coords.ToStringOnSeparateLines();
         cell.text.text = index.ToString();
         cell.elevation = elevation;
-        // cell.elevation = Mathf.PerlinNoise()
-        // cell.Init(0, new Vector2Int(x, z), index);
-
-
         if (z > 0)
         {
             cell.SetNeighbor(Direction.S, cells[index - 1]);
@@ -157,7 +153,6 @@ public class HexGrid : MonoBehaviour
         {
             DestroyImmediate(go);
         }
-        
     }
 
     private void Update()
@@ -215,10 +210,49 @@ public class HexGrid : MonoBehaviour
     /// <param name="fromCell"></param>
     /// <param name="toCell"></param>
     /// <returns> Enumerable of the path from fromCell to toCell</returns>
-    IEnumerable<HexCell> Search(HexCell fromCell, HexCell toCell)
+    IEnumerable<HexCell> Search(HexCell fromCell, HexCell toCell, CellType[] walkable)
     {
-        
-        yield return null;
+        queue.Clear();
+
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].distance = int.MaxValue;
+        }
+
+        fromCell.distance = 0;
+        queue.Enqueue(fromCell);
+        //Use the queue to deque all options
+        while (queue.Count > 0)
+        {
+            HexCell current = queue.Dequeue();
+            if (current == toCell)
+            {
+                current = current.pathFrom;
+                while (current != fromCell)
+                {
+                    yield return current;
+                    current = current.pathFrom;
+                }
+                yield break;
+            }
+
+            int distance = current.distance;
+            for (int j = 0; j < 6; j++)
+            {
+                var neighbour = current.GetNeighbor((Direction) j);
+                if (neighbour == null) continue;
+                if (!walkable.Contains(neighbour.cellType)) continue;
+                //neighbour has not been added to queue
+                if (neighbour.distance == int.MaxValue)
+                {
+                    // neighbour.searchHueristic
+                }
+
+            }
+        }
+
+        yield break;
+        // yield return null;
     }
 
     private void OnDrawGizmos()

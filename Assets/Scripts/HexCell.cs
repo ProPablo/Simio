@@ -43,6 +43,18 @@ public class HexCell : MonoBehaviour
     // public Stack<Actor> actorStack;
     public List<Actor> actorStack = new List<Actor>();
 
+    [Header("Pathfinding")] public int distance = 0;// this is the h value or the hueristic
+    public HexCell pathFrom;
+    public int gValue;
+
+    //This is the fValue
+	public int SearchPriority {
+		get {
+			return distance + gValue;
+		}
+	}
+	public HexCell NextWithSamePriority { get; set; }
+
     public int Distance(HexCell other)
     {
         return coords.DistanceTo(other.coords);
