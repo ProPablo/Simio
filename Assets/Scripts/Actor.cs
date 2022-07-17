@@ -24,6 +24,7 @@ public class Actor : StateMachine
     public HexCell currentTile;
     public string currentBehaviour;
     public BehaviourComponent[] behaviours;
+    public SpriteRenderer alertSprite;
     #region Animation Keys
     public static readonly int IdleDownKey = Animator.StringToHash("IdleDown");
     public static readonly int IdleLeftKey = Animator.StringToHash("IdleLeft");
@@ -42,12 +43,14 @@ public class Actor : StateMachine
         anim.runtimeAnimatorController = spriteVariants[Random.Range(0, spriteVariants.Length)];
         foreach (var behaviour in behaviours)
             behaviour.actor = this;
+        alertSprite = GetComponentInChildren<SpriteRenderer>();
     }
     protected override void Start()
     {
         base.Start();
         currentState = new IdleState(this);
         currentState.OnEnter();
+        alertSprite.enabled = false;
     }
     private void LateUpdate()
     {
