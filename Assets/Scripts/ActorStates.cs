@@ -120,13 +120,14 @@ public class AlertedMove : MoveState
 }
 public class AttackState : IdleState
 {
-    public AttackState(Actor sm) : base(sm)
+    private Actor target;
+    public AttackState(Actor sm, Actor target) : base(sm)
     {
         duration = BehaviourManager.i.tickDur;
     }
     public override void OnEnter()
     {
         base.OnEnter();
-        actor.ps.Emit(1);
+        target.ps.Emit(1);
     }
 }

@@ -31,6 +31,7 @@ public class Hunt : BehaviourComponent
         if (currentTarget.currentTile.Distance(actor.currentTile) <=1)
         {
             //Do attack
+
             return;
         }
         base.OnAction();
