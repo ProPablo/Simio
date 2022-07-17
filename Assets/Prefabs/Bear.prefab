@@ -97,7 +97,9 @@ GameObject:
   - component: {fileID: 3550300569989456770}
   - component: {fileID: 3550300569989456771}
   - component: {fileID: 5054474068060775623}
+  - component: {fileID: 1693519723795514102}
   - component: {fileID: 1454845615253640114}
+  - component: {fileID: -5106031496344865223}
   - component: {fileID: 5043971643855753582}
   - component: {fileID: 1750080148665313295}
   - component: {fileID: 3729631780992513118}
@@ -290,6 +292,24 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1693519723795514102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3550300569989456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b82a9e8b09c4954387fd26cb5beda8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 4
+  hungerThreshold: 0.95
+  consumeRate: 20
 --- !u!114 &1454845615253640114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +331,26 @@ MonoBehaviour:
   seekDistance: 12
   currentTarget: {fileID: 0}
   minDot: -0.1
+--- !u!114 &-5106031496344865223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3550300569989456772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d6e7b9c83f154a8e1e207970fec42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 12
+  seekDistance: 15
+  currentTarget: {fileID: 0}
+  minDot: -0.1
+  hungerThreshold: 0.7
 --- !u!114 &5043971643855753582
 MonoBehaviour:
   m_ObjectHideFlags: 0

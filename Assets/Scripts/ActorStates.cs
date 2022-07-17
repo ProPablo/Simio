@@ -144,19 +144,37 @@ public class AlertedStay : IdleState
         actor.alertSprite.enabled = false;
     }
 }
-public class AttackState : AlertedStay
+public class AttackState : IdleState
 {
     private Actor target;
-
+    readonly float halfwayPoint;
+    readonly float pounceDist = 0.5f;
+    Vector3 startPos;
     public AttackState(Actor sm, Actor target) : base(sm)
     {
         duration = BehaviourManager.i.tickDur;
+        halfwayPoint = duration * 0.5f;
         this.target = target;
     }
     public override void OnEnter()
     {
         base.OnEnter();
         target.ChangeState(new InjuredState(target, actor.attackScaled));
+        startPos = actor.transform.localPosition;
+    }
+    public override void Update()
+    {
+        base.Update();
+        Vector3 targetPos = startPos + AssetDB.DirectionVectors[(int)actor.lastDir].vec * pounceDist;
+        if (age > halfwayPoint)
+            actor.transform.localPosition = Vector3.Lerp(startPos, targetPos, KongrooUtils.RemapRange(age, duration, halfwayPoint, 0, 1));
+        else
+            actor.transform.localPosition = Vector3.Lerp(targetPos, startPos, KongrooUtils.RemapRange(age, halfwayPoint, 0, 0, 1));
+    }
+    public override void OnExit()
+    {
+        base.OnExit();
+        actor.transform.localPosition = startPos;
     }
 }
 
@@ -198,11 +216,45 @@ public class EatingState : IdleState
         target.currentHealth -= healAmount;
         // actor.currentHealth += healAmount;
         // target.currentHealth -= healAmount;
-        actor.foodParticles.Play();
+        //actor.foodParticles.Play();
+        actor.foodParticles.Emit(healAmount);
+    }
+    //public override void OnExit()
+    //{
+    //    base.OnExit();
+    //    actor.foodParticles.Stop();
+    //}
+}
+public class BreedState : IdleState
+{
+    private Actor target;
+    readonly float halfwayPoint;
+    readonly float humpDist = 0.5f;
+    Vector3 startPos;
+    public BreedState(Actor sm, Actor target) : base(sm)
+    {
+        duration = BehaviourManager.i.tickDur;
+        halfwayPoint = duration * 0.5f;
+        this.target = target;
+    }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        target.ChangeState(new InjuredState(target, actor.attackScaled));
+        startPos = actor.transform.localPosition;
+    }
+    public override void Update()
+    {
+        base.Update();
+        Vector3 targetPos = startPos + AssetDB.DirectionVectors[(int)actor.lastDir].vec * humpDist;
+        if (age > halfwayPoint)
+            actor.transform.localPosition = Vector3.Lerp(startPos, targetPos, KongrooUtils.RemapRange(age, duration, halfwayPoint, 0, 1));
+        else
+            actor.transform.localPosition = Vector3.Lerp(targetPos, startPos, KongrooUtils.RemapRange(age, halfwayPoint, 0, 0, 1));
     }
     public override void OnExit()
     {
         base.OnExit();
-        actor.foodParticles.Stop();
+        actor.transform.localPosition = startPos;
     }
 }

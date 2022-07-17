@@ -5,7 +5,8 @@ using System.Linq;
 
 public class Eat : BehaviourComponent
 {
-    [Tooltip("Will eat when health is below this threshold")] [Range(0, 1)]
+    [Tooltip("Will eat when health is below this threshold")]
+    [Range(0, 1)]
     public float hungerThreshold = 0.95f;
 
     [Tooltip("How much HP to consume per action")]

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 62382311923758280}
   - component: {fileID: 62382311923758281}
   - component: {fileID: 8628204802247144333}
+  - component: {fileID: 3870552374009134212}
+  - component: {fileID: 6590255932525456060}
   - component: {fileID: 7763046867383502450}
   - component: {fileID: -2175612838034981302}
   - component: {fileID: 8387772420006037028}
@@ -210,6 +212,44 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3870552374009134212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62382311923758286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b82a9e8b09c4954387fd26cb5beda8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 2
+  hungerThreshold: 0.95
+  consumeRate: 10
+--- !u!114 &6590255932525456060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62382311923758286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20d6e7b9c83f154a8e1e207970fec42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 8
+  seekDistance: 12
+  currentTarget: {fileID: 0}
+  minDot: -0.1
+  hungerThreshold: 0.7
 --- !u!114 &7763046867383502450
 MonoBehaviour:
   m_ObjectHideFlags: 0

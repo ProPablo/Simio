@@ -59,7 +59,8 @@ public class Actor : StateMachine
     }
     public override void Despawn(Object obj = null)
     {
-        BehaviourManager.i.SpawnCorpse(currentTile);
+        if (type != ActorType.RESOURCE)
+            BehaviourManager.i.SpawnCorpse(currentTile);
         currentTile.LeaveCell(this);
         base.Despawn(obj);
     }

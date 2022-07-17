@@ -20,6 +20,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: c57438eee4425c249bdc02837a9a7bc3, type: 2}
     - target: {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: diet
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2433895532430418246, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: ticksPerAction
       value: 2
       objectReference: {fileID: 0}
@@ -86,6 +90,14 @@ PrefabInstance:
     - target: {fileID: 2433895532430418247, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344848357947984456, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: seekDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344848357947984456, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
+      propertyPath: ticksPerAction
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5377489855990010879, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: ticksPerAction
