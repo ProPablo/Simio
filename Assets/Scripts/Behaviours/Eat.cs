@@ -5,8 +5,7 @@ using System.Linq;
 
 public class Eat : BehaviourComponent
 {
-    [Tooltip("Will eat when health is below this threshold")]
-    [Range(0, 1)]
+    [Tooltip("Will eat when health is below this threshold")] [Range(0, 1)]
     public float hungerThreshold = 0.95f;
 
     [Tooltip("How much HP to consume per action")]
@@ -54,7 +53,7 @@ public class Eat : BehaviourComponent
 
     Actor GetClosestResource(Diet resType)
     {
-        var allTiles = actor.currentTile.neighbours.Append(actor.currentTile);
+        var allTiles = actor.currentTile.neighbours.Append(actor.currentTile).Where(t => t != null);
         return allTiles
             .SelectMany(t => t.actorStack.Where(a => a.type == ActorType.RESOURCE && a.diet == resType))
             .FirstOrDefault();
