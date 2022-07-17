@@ -34,7 +34,7 @@ Material:
     - _NumOctaves: 5
     - _coordZoom: 2.83
     m_Colors:
-    - _col1: {r: 0, g: 0.113166906, b: 0.51832986, a: 1}
-    - _col2: {r: 0.033334672, g: 0.12754247, b: 0.33805153, a: 1}
+    - _col1: {r: 0, g: 0.69506, b: 0.9970891, a: 1}
+    - _col2: {r: 0.44612706, g: 0.6932336, b: 0.89660394, a: 1}
     - _timeZoom: {r: 3.38, g: 4.25, b: 0, a: 0}
   m_BuildTextureStacks: []
