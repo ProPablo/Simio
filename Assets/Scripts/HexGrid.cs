@@ -210,6 +210,18 @@ public class HexGrid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// A* pathfinding for directions to Cell
+    /// </summary>
+    /// <param name="fromCell"></param>
+    /// <param name="toCell"></param>
+    /// <returns> Enumerable of the path from fromCell to toCell</returns>
+    IEnumerable<HexCell> Search(HexCell fromCell, HexCell toCell)
+    {
+        
+        yield return null;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
