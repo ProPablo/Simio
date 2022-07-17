@@ -125,16 +125,54 @@ public class AlertedMove : MoveState
         actor.alertSprite.enabled = false;
     }
 }
-public class AttackState : IdleState
+
+public class AlertedStay : IdleState
 {
-    private Actor target;
-    public AttackState(Actor sm, Actor target) : base(sm)
+    public AlertedStay(Actor sm) : base(sm )
     {
         duration = BehaviourManager.i.tickDur;
     }
     public override void OnEnter()
     {
         base.OnEnter();
-        target.ps.Emit(1);
+        actor.alertSprite.enabled = true;
     }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        actor.alertSprite.enabled = false;
+    }
+}
+public class AttackState : AlertedStay
+{
+    private Actor target;
+
+    public AttackState(Actor sm, Actor target) : base(sm)
+    {
+        duration = BehaviourManager.i.tickDur;
+        this.target = target;
+    }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        target.ChangeState(new InjuredState(target, actor.attackScaled));
+    }
+}
+
+public class InjuredState : IdleState
+{
+    private int _damageTaken;
+    public InjuredState(Actor sm, int damageTaken) : base(sm)
+    {
+        duration = BehaviourManager.i.tickDur;
+        _damageTaken = damageTaken;
+    }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        actor.currentHealth -= _damageTaken;
+        actor.ps.Emit(_damageTaken);
+    }
+
 }
