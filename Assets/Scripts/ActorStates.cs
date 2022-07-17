@@ -172,7 +172,29 @@ public class InjuredState : IdleState
     {
         base.OnEnter();
         actor.currentHealth -= _damageTaken;
-        actor.ps.Emit(_damageTaken);
+        actor.bloodParticles.Emit(_damageTaken);
     }
-
+}
+public class EatingState : IdleState
+{
+    private readonly Actor target;
+    private int healAmount;
+    public EatingState(Actor sm, Actor _target, int _healAmount) : base(sm)
+    {
+        duration = BehaviourManager.i.tickDur;
+        target = _target;
+        healAmount = _healAmount;
+    }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        actor.currentHealth += healAmount;
+        target.currentHealth -= healAmount;
+        actor.foodParticles.Play();
+    }
+    public override void OnExit()
+    {
+        base.OnExit();
+        actor.foodParticles.Stop();
+    }
 }

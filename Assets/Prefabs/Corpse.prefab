@@ -49,13 +49,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  ps: {fileID: 0}
+  bloodParticles: {fileID: 0}
+  foodParticles: {fileID: 0}
   spriteVariants:
   - {fileID: 9100000, guid: dab07b884b163ed4e994cb6032c1721b, type: 2}
   baseHealth: 100
   maxAge: 1000
   baseAttack: 30
-  diet: 0
+  diet: 3
   type: 0
   walkable: 000000000100000002000000
   totalHealthScaled: 0

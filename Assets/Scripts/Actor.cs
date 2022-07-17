@@ -5,7 +5,7 @@ using UnityEngine;
 public class Actor : StateMachine
 {
     [HideInInspector] public Animator anim;
-    [HideInInspector] public ParticleSystem ps;
+    public ParticleSystem bloodParticles, foodParticles;
     public RuntimeAnimatorController[] spriteVariants;
     [Header("Stat Allocation")]
     public int baseHealth;
@@ -38,7 +38,6 @@ public class Actor : StateMachine
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        ps = GetComponent<ParticleSystem>();
         behaviours = GetComponents<BehaviourComponent>();
         anim.runtimeAnimatorController = spriteVariants[Random.Range(0, spriteVariants.Length)];
         foreach (var behaviour in behaviours)
