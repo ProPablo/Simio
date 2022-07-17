@@ -40,6 +40,7 @@ public class HexGrid : MonoBehaviour
     public int seed;
     public Vector2 offset;
     public float heightScale = 2f;
+    public HexCell currentlySelected;
 
     void Awake()
     {
@@ -98,6 +99,9 @@ public class HexGrid : MonoBehaviour
 
             // cell.FindNeighbours(this);
         }
+
+        currentlySelected = cells[0];
+        currentlySelected.SelectCell(true);
 
         //transform.position = new Vector3(-XMax, 0, -ZMax);
         //transform.position = Vector3.zero;
@@ -200,7 +204,10 @@ public class HexGrid : MonoBehaviour
         {
             Vector3 pos = hit.point;
             var cell = GetCell(pos);
-            cell.ToggleCell();
+            // cell.ToggleCell();
+            currentlySelected.SelectCell(false);
+            currentlySelected = cell;
+            cell.SelectCell(true);
             // Debug.Log("touched at " + coords.ToString() + "at :" + index);
         }
     }
