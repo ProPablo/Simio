@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Eat : BehaviourComponent
+public class Breed : BehaviourComponent
 {
-    [Tooltip("Will eat when health is below this threshold")] [Range(0, 1)]
+    [Tooltip("Will fuck when health is above this threshold")] [Range(0, 1)]
     public float hungerThreshold = 0.95f;
 
-    [Tooltip("How much HP to consume per action")]
-    public int consumeRate = 5;
+    // [Tooltip("How much HP to consume per action")]
+    // public int consumeRate = 5;
+    public float breedChance = 0.5f;
+    public int minAge = 100;
 
-    Actor food = null;
+    Actor partner = null;
+    public Actor spawnPrefab;
 
     public override bool OnTick()
     {
         base.OnTick();
-        if (actor.currentHealth > actor.totalHealthScaled * hungerThreshold) return false;
+        if (actor.currentHealth < actor.totalHealthScaled * hungerThreshold) return false;
         ticks++;
         //switch (actor.diet)
         //{
@@ -36,35 +39,39 @@ public class Eat : BehaviourComponent
         //        break;
 
         //}
-        food = GetClosestResource(actor.diet);
-        if (food != null)
+        partner = GetClosestPartner(actor.tag);
+        if (partner != null)
         {
             if (ticks >= ticksPerAction)
             {
                 OnAction();
                 return true;
-                //if (actor.currentHealth >= actor.totalHealthScaled)
-                //    return true;
             }
         }
 
         return false;
     }
 
-    Actor GetClosestResource(Diet resType)
+    Actor GetClosestPartner(string tag)
     {
         var allTiles = actor.currentTile.neighbours.Append(actor.currentTile).Where(t => t != null);
         return allTiles
-            .SelectMany(t => t.actorStack.Where(a => a.type == ActorType.RESOURCE && a.diet == resType))
+            .SelectMany(t => t.actorStack.Where(a => a.CompareTag(tag) && a.currentAge >= minAge))
             .FirstOrDefault();
     }
 
     public override void OnAction()
     {
-        //Subscribe to if the food dies early THERE MAY BE AN ERROR HERE
+        //Subscribe to if the partner dies early THERE MAY BE AN ERROR HERE
         base.OnAction();
-        if (food == null) return;
-        actor.ChangeState(new EatingState(actor, food, consumeRate));
-        food = null;
+        if (partner == null) return;
+        actor.ChangeState(new BreedState(actor, partner));
+        //Only complete fuck if chance
+        if (Random.value < breedChance)
+        {
+            BehaviourManager.i.SpawnActor(spawnPrefab, actor.currentTile);
+        }
+
+        partner = null;
     }
 }
