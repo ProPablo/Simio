@@ -53,6 +53,7 @@ public class IdleState : ActorStates
 }
 public class MoveState : ActorStates
 {
+
     Vector3 currentPos;
     readonly HexCell targetCell;
     readonly Direction targetDir;
@@ -91,7 +92,7 @@ public class MoveState : ActorStates
                 break;
         }
         actor.currentTile.LeaveCell(actor);
-        actor.currentTile = targetCell;
+        
     }
     public override void Update()
     {
@@ -102,6 +103,18 @@ public class MoveState : ActorStates
     {
         base.OnExit();
         targetCell.JoinCell(actor);
-        //actor.transform.position = targetPos;
+        actor.currentTile = targetCell;
+    }
+}
+public class AlertedMove : MoveState
+{
+    public AlertedMove(Actor sm, Direction _targetDir, HexCell _targetCell) : base(sm, _targetDir, _targetCell)
+    {
+        duration = BehaviourManager.i.tickDur;
+    }
+    public override void OnEnter()
+    {
+        base.OnEnter();
+        actor.ps.Emit(1);
     }
 }

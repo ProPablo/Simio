@@ -16,7 +16,7 @@ public class HexGrid : MonoBehaviour
     public static float InnerRad => i.innerRad;
 
     public float XMax => (outerRad * 2) * width / 2;
-    public float ZMax => (outerRad * 2) * height / 2;
+    public float ZMax => (innerRad * 2) * height / 2;
 
 
     //using second configuration
@@ -97,7 +97,8 @@ public class HexGrid : MonoBehaviour
             // cell.FindNeighbours(this);
         }
 
-        transform.position = -1* new Vector3(XMax, 0, ZMax) / 2;
+        //transform.position = new Vector3(-XMax, 0, -ZMax);
+        //transform.position = Vector3.zero;
     }
 
     public void CreateCell(int x, int z, int index, float elevation)

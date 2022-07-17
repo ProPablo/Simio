@@ -38,13 +38,20 @@ public class BehaviourManager : MonoBehaviour
     {
         foreach (Actor actor in currentActors)
         {
+            bool isTicked = false;
             foreach (BehaviourComponent behaviour in actor.behaviours)
             {
-                if (behaviour.OnTick())
+                if (isTicked)
                 {
+                    behaviour.ticks = 0;
+                }
+                else if (behaviour.OnTick())
+                {
+                    isTicked = true;
                     behaviour.ticks = 0;
                     actor.currentBehaviour = behaviour.Name;
                 }
+                
             }
         }
     }
