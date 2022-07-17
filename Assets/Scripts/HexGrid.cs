@@ -10,13 +10,13 @@ public class HexGrid : MonoBehaviour
     public float outerRad = 5f;
     public float innerRad => outerRad * 0.866025404f;
 
-    public static Vector3[] Corners => instance.corners;
-    public static float OuterRad => instance.outerRad;
+    public static Vector3[] Corners => i.corners;
+    public static float OuterRad => i.outerRad;
 
-    public static float InnerRad => instance.innerRad;
+    public static float InnerRad => i.innerRad;
 
-    public float XMax => outerRad * width / 2;
-    public float ZMax => outerRad * height / 2;
+    public float XMax => (outerRad * 2) * width / 2;
+    public float ZMax => (outerRad * 2) * height / 2;
 
 
     //using second configuration
@@ -28,7 +28,7 @@ public class HexGrid : MonoBehaviour
     public HexCell cellPrefab;
     private HexCell[] cells;
     public HexMesh mesh;
-    public static HexGrid instance;
+    public static HexGrid i;
     private Camera _cam;
 
     [Header("Perlin noise")] public float noiseScale;
@@ -39,10 +39,9 @@ public class HexGrid : MonoBehaviour
     public Vector2 offset;
     public float heightScale = 2f;
 
-
     void Awake()
     {
-        instance = this;
+        i = this;
         _cam = Camera.main;
         corners = new[]
         {
@@ -74,8 +73,7 @@ public class HexGrid : MonoBehaviour
 
     private void Start()
     {
-        CreateGrid();
-        mesh.Triangulate(cells);
+        Init();
     }
 
     public void CreateGrid()
@@ -86,18 +84,20 @@ public class HexGrid : MonoBehaviour
         cells = new HexCell[width * height];
         int cellIndex = 0;
         for (int i = 0; i < width; i++)
-        for (int j = 0; j < height; j++)
-        {
-            CreateCell(i, j, cellIndex++, noiseMap[i, j]);
-        }
+            for (int j = 0; j < height; j++)
+            {
+                CreateCell(i, j, cellIndex++, noiseMap[i, j]);
+            }
 
         //Needs to happen after all cells filled out
         foreach (var cell in cells)
         {
+            cell.Init();
+
             // cell.FindNeighbours(this);
         }
 
-        // transform.position -= new Vector3(XMax, 0, ZMax);
+        transform.position = -1* new Vector3(XMax, 0, ZMax) / 2;
     }
 
     public void CreateCell(int x, int z, int index, float elevation)
@@ -116,7 +116,7 @@ public class HexGrid : MonoBehaviour
         cell.index = index;
         // cell.text.text = cell.coords.ToStringOnSeparateLines();
         cell.text.text = index.ToString();
-        cell.Init();
+        cell.elevation = elevation;
         // cell.elevation = Mathf.PerlinNoise()
         // cell.Init(0, new Vector2Int(x, z), index);
 
@@ -157,6 +157,7 @@ public class HexGrid : MonoBehaviour
         {
             DestroyImmediate(go);
         }
+        
     }
 
     private void Update()

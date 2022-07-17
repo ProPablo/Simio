@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Wander : BehaviourComponent
 {
-    Direction newDir;
+    public CellType[] walkable;
     public override bool OnTick()
     {
         base.OnTick();
@@ -19,32 +19,8 @@ public class Wander : BehaviourComponent
     public override void OnAction()
     {
         base.OnAction();
-        while (newDir == actor.lastDir)
-        {
-            newDir = (Direction)Mathf.FloorToInt(Random.value * AssetDB.dirLength);
-        }
-        actor.lastDir = newDir;
-        // Change transform.position to current grid position
-        switch (newDir)
-        {
-            case Direction.N:
-                actor.ChangeState(new MoveState(actor, transform.position + new Vector3(0, 0, 1)));
-                break;
-            case Direction.NE:
-                actor.ChangeState(new MoveState(actor, transform.position + new Vector3(0.75f, 0, 0.25f)));
-                break;
-            case Direction.SE:
-                actor.ChangeState(new MoveState(actor, transform.position + new Vector3(0.75f, 0, -0.25f)));
-                break;
-            case Direction.S:
-                actor.ChangeState(new MoveState(actor, transform.position + new Vector3(0, 0, -1)));
-                break;
-            case Direction.SW:
-                actor.ChangeState(new MoveState(actor, transform.position + new Vector3(-0.75f, 0, -0.25f)));
-                break;
-            case Direction.NW:
-                actor.ChangeState(new MoveState(actor, transform.position + new Vector3(-0.75f, 0, 0.25f)));
-                break;
-        }
+        var (neighbourTile, tileDir) = actor.currentTile.SelectRandomNeighbor(walkable);
+        if (neighbourTile == null) return;
+        actor.ChangeState(new MoveState(actor, tileDir, neighbourTile));
     }
 }

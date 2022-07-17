@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2433895532430418245}
   - component: {fileID: 2433895532430418244}
   - component: {fileID: 6243895615757346304}
+  - component: {fileID: 5377489855990010879}
   - component: {fileID: 6159822467651081129}
   m_Layer: 0
   m_Name: Sheep
@@ -52,12 +53,18 @@ MonoBehaviour:
   spriteVariants:
   - {fileID: 9100000, guid: 0fc3780e771280c4fae1206ff33829c2, type: 2}
   - {fileID: 9100000, guid: 0322b282afd47b647b92d294440c7c53, type: 2}
-  lastDir: 0
-  totalHealth: 100
-  currentHealth: 0
-  age: 0
+  baseHealth: 100
+  maxAge: 1000
+  baseAttack: 30
   diet: 0
+  type: 1
+  totalHealthScaled: 0
+  currentHealth: 0
+  currentAge: 0
+  attackScaled: 0
+  lastDir: 0
   currentTile: {fileID: 0}
+  currentBehaviour: 
   behaviours: []
 --- !u!95 &2433895532430418245
 Animator:
@@ -147,7 +154,6 @@ MonoBehaviour:
   Name: 
   ticks: 0
   ticksPerAction: 1
-  maxAge: 1000
   sizeCurve:
     serializedVersion: 2
     m_Curve:
@@ -190,6 +196,25 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5377489855990010879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2433895532430418243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38ee0f296dd94d48847b340c0d8ac35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 3
+  fleeActions: 3
+  threats: 0200000003000000
+  maxThreatDistance: 4
 --- !u!114 &6159822467651081129
 MonoBehaviour:
   m_ObjectHideFlags: 0

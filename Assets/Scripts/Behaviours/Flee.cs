@@ -6,62 +6,59 @@ using UnityEngine;
 
 public class Flee : BehaviourComponent
 {
-    public string evilMans = "fox";
-    public Func<Actor, bool> actorPredicate = (a) => (a.name == "fox");
-    public LayerMask enemyLayerMask;
+    [Tooltip("How many actions to flee away from after recognising a threat")]
+    public int fleeActions;
+    //public string evilMans = "Wolf";
+    //public Func<Actor, bool> actorPredicate = (a) => (a.name == "Wolf");
+    //public LayerMask enemyLayerMask;
 
-    public string[] threats;
+    //public string[] threats;
+    public ActorType[] threats;
     public int maxThreatDistance = 4;
-    public bool threat = true;
-    public int tickDuration;
-    public int distToPredatorThreshold = 3;
-    Direction fleeDir;
-    public bool startled = false;
+    Direction tileDir;
     int elapsed = int.MaxValue;
+    Actor currentThreat = null;
+
     public override bool OnTick()
     {
         base.OnTick();
-        
-        FindThreat();
-        if (threat)
-        {
-            startled = true;
-        }
-        if (startled)
-        {
-            elapsed = 0;
-            //Set flee dir here
-        }
+        currentThreat = FindThreat();
+        if (currentThreat == null) return false;
         ticks++;
         if (ticks >= ticksPerAction)
         {
             OnAction();
-            if (elapsed < tickDuration)
-                ticks = 0;
-            startled = false;
-            return true;
+            if (elapsed < fleeActions)
+                return true;
         }
         return false;
     }
     
 
-    public void FindThreat()
+    public Actor FindThreat()
     {
-        var threatActors = BehaviourManager.i.currentActors.Where(a=>  threats.Any(t=> a.CompareTag(t)));
+        var threatActors = BehaviourManager.i.currentActors.Where(a => threats.Any(t=> a.type == t));
+        //var threatActors = BehaviourManager.i.currentActors.Where(a=>  threats.Any(t=> a.CompareTag(t)));
         var closestThreat = threatActors
             .Where(t => t.currentTile.Distance(actor.currentTile) < maxThreatDistance)
             // .Where(t => {})
             .OrderBy(t => t.currentTile.Distance(actor.currentTile))
             .FirstOrDefault();
-        if (closestThreat == null)
-            return;
-        threat = closestThreat;
+       
+        elapsed = 0;
+        return closestThreat;
     }
     public override void OnAction()
     {
+        if (!currentThreat) return;
         base.OnAction();
         elapsed++;
-        actor.lastDir = Direction.S;
-        actor.ChangeState(new MoveState(actor, transform.position + new Vector3(0, 0, -1)));
+
+        var foxToMe = actor.transform.position - currentThreat.transform.position;
+
+        var directions = AssetDB.DirectionVectors.OrderBy(d => Vector3.Dot(d.vec, foxToMe));
+        //if ()
+
+        //actor.ChangeState(new MoveState(actor, tileDir, ));
     }
 }

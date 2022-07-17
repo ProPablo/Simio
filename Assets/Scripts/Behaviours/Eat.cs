@@ -5,12 +5,16 @@ using System.Linq;
 
 public class Eat : BehaviourComponent
 {
-    public int ticksToEat = 2;
-    private int ticksToNextEat = int.MaxValue;
+    [Tooltip("Will eat when health is below this threshold")]
+    [Range(0, 1)] public float hungerThreshold = 0.95f;
+    [Tooltip("How much HP to consume per action")]
+    public int consumeRate = 5;
     Actor food = null;
     public override bool OnTick()
     {
         base.OnTick();
+        if (actor.currentHealth > actor.totalHealthScaled * hungerThreshold) return false;
+        ticks++;
         switch (actor.diet)
         {
             case Diet.PLANT:
@@ -26,16 +30,14 @@ public class Eat : BehaviourComponent
                 food = actor.currentTile.actorStack.FirstOrDefault(a => a.CompareTag("Corpse"));
                 break;
         }
-
         if (food != null)
         {
-            if (ticksToNextEat >= ticksToEat)
+            if (ticks >= ticksPerAction)
             {
                 OnAction();
-                ticksToNextEat = 0;
-                return true;
+                if (actor.currentHealth >= actor.totalHealthScaled)
+                    return true;
             }
-            ticksToNextEat++;
         }
         return false;
     }
@@ -43,8 +45,8 @@ public class Eat : BehaviourComponent
     {
         base.OnAction();
         if (food == null) return;
-        actor.currentHealth = Mathf.Clamp(actor.currentHealth + 1, 0, actor.totalHealth);
-        food.currentHealth--;
+        actor.currentHealth = Mathf.Clamp(actor.currentHealth + consumeRate, 0, actor.totalHealthScaled);
+        food.currentHealth -= consumeRate;
         food = null;
     }
 }

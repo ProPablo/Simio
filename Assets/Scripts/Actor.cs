@@ -6,15 +6,21 @@ public class Actor : StateMachine
 {
     [HideInInspector] public Animator anim;
     public RuntimeAnimatorController[] spriteVariants;
-    public Direction lastDir;
-    [Header("Stats")]
-    public int totalHealth;
-    public int currentHealth;
-    public int age = 0;
+    [Header("Stat Allocation")]
+    public int baseHealth;
+    public int maxAge = int.MaxValue;
+    public int baseAttack;
     public Diet diet;
-
+    public ActorType type;
+    [Header("Current Stats")]
+    public int totalHealthScaled;
+    public int currentHealth;
+    public int currentAge = 0;
+    public int attackScaled;
+    [Header("Debug Info")]
+    public Direction lastDir;
     public HexCell currentTile;
-
+    public string currentBehaviour;
     public BehaviourComponent[] behaviours;
     #region Animation Keys
     public static readonly int IdleDownKey = Animator.StringToHash("IdleDown");

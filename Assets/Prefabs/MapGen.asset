@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508cecd8d42347249b9254dd25ee5c00, type: 3}
+  m_Name: MapGen
+  m_EditorClassIdentifier: Assembly-CSharp::HexCellSpawn
+  regionDefinition:
+    serializedVersion: 2
+    key0: {r: 0, g: 0, b: 1, a: 1}
+    key1: {r: 0, g: 1, b: 1, a: 1}
+    key2: {r: 1, g: 1, b: 0, a: 0}
+    key3: {r: 0, g: 1, b: 0, a: 0}
+    key4: {r: 1, g: 1, b: 1, a: 0}
+    key5: {r: 1, g: 1, b: 1, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 15613
+    ctime1: 27563
+    ctime2: 41441
+    ctime3: 53199
+    ctime4: 65535
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 1
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  spawnDefinitions:
+  - tilePrefab: {fileID: 3849145225979947155, guid: 0545fa1eb129eff43bc370615dfb6c36, type: 3}
+    colorDef: {r: 0, g: 0, b: 1, a: 1}
+    type: 3
+  - tilePrefab: {fileID: 3849145225979947155, guid: 693ce39906845af42a78e44711b98c63, type: 3}
+    colorDef: {r: 0, g: 1, b: 1, a: 1}
+    type: 2
+  - tilePrefab: {fileID: 1679931412397562469, guid: 168bbd49831493a4fab0ad76dc0ba670, type: 3}
+    colorDef: {r: 1, g: 1, b: 0, a: 1}
+    type: 1
+  - tilePrefab: {fileID: 4262601155504199028, guid: b9b53d6d7ab14464da349dedd3a2f459, type: 3}
+    colorDef: {r: 0, g: 1, b: 0, a: 1}
+    type: 0
+  - tilePrefab: {fileID: 8144763112310870379, guid: 5ba72cb16569a504da8e0082a9566627, type: 3}
+    colorDef: {r: 1, g: 1, b: 1, a: 1}
+    type: 4
+  waterHeight: 0.4
