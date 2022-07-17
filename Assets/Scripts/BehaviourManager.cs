@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BehaviourManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BehaviourManager : MonoBehaviour
     public float slerpCentre = 0.25f;
     public Actor[] actorSpawns;
     public List<Actor> currentActors = new List<Actor>();
+    public Actor corpseActor;
     private void Awake()
     {
         i = this;
@@ -18,7 +20,8 @@ public class BehaviourManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            SpawnActor(actorSpawns[Random.Range(0, actorSpawns.Length)]);
+            //SpawnActor(actorSpawns[Random.Range(0, actorSpawns.Length)]);
+            SpawnRandomActor();
 
         if (enableTime)
         {
@@ -55,12 +58,29 @@ public class BehaviourManager : MonoBehaviour
             }
         }
     }
-    public void SpawnActor(Actor actorToSpawn)
+    public void SpawnActor(Actor actorToSpawn, HexCell spawnPos)
     {
-        var spawnPos = HexGrid.i.GetCell(Vector3.zero);
         Actor spawned = Instantiate(actorToSpawn, spawnPos.transform.position, Quaternion.identity);
         currentActors.Add(spawned);
         spawned.currentTile = spawnPos;
         spawned.currentTile.JoinCell(spawned);
+
+        spawned.deathEvent += DeathEvent;
+    }
+
+    public void SpawnRandomActor()
+    {
+        var selectedTile = HexGrid.i.currentlySelected;
+        var spawnByTile = actorSpawns.Where(a => (a.walkable.Contains(selectedTile.cellType))).ToList().RandomElement();
+        if (spawnByTile == null) return;
+        SpawnActor(spawnByTile, HexGrid.i.currentlySelected);
+    }
+    public void DeathEvent(StateMachine sm)
+    {
+        currentActors.Remove(sm as Actor);
+    }
+    public void SpawnCorpse(HexCell tile)
+    {
+        SpawnActor(corpseActor, tile);
     }
 }

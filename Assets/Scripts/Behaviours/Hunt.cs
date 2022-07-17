@@ -14,8 +14,9 @@ public class Hunt : BehaviourComponent
     public override bool OnTick()
     {
         base.OnTick();
-        if (actor.currentHealth > huntThreshold * actor.totalHealthScaled) return false;
+        //if (actor.currentHealth > huntThreshold * actor.totalHealthScaled) return false;
         currentTarget = FindTarget();
+        if (currentTarget == null) return false;
         ticks++;
         if (ticks >= ticksPerAction)
         {
@@ -27,6 +28,11 @@ public class Hunt : BehaviourComponent
     public override void OnAction()
     {
         if (currentTarget == null) return;
+        if (currentTarget.currentTile.Distance(actor.currentTile) <=1)
+        {
+            //Do attack
+            return;
+        }
         base.OnAction();
         var toTarget = currentTarget.transform.position - actor.transform.position;
         toTarget.y = 0;
