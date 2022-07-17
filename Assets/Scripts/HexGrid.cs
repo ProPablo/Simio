@@ -28,7 +28,11 @@ public class HexGrid : MonoBehaviour
     public bool autoUpdate = true;
 
     public HexCell cellPrefab;
+<<<<<<< HEAD
     [HideInInspector] public HexCell[] cells;
+=======
+    public HexCell[] cells;
+>>>>>>> 15559031a224a48966d97e55b1f67c49a2fcdb64
     public HexMesh mesh;
     public static HexGrid i;
     private Camera _cam;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 using UnityEngine.UI;
 
 public class BehaviourManager : MonoBehaviour
@@ -16,13 +17,19 @@ public class BehaviourManager : MonoBehaviour
     public Actor corpseActor;
     public Image pieCirclePrefab;
     private List<Image> pieCircles = new List<Image>();
+    public int totalTicks = 0;
 
     public Actor samplePrefab;
+    private BehaviourComponent[] systemBehaviors;
+
+    [Header("UI")] public TextMeshProUGUI tickText;
 
     private void Awake()
     {
         i = this;
+        systemBehaviors = GetComponents<BehaviourComponent>();
     }
+
 
     private void Update()
     {
@@ -52,6 +59,7 @@ public class BehaviourManager : MonoBehaviour
 
     void RunTick()
     {
+        totalTicks++;
         var currentActorCount = currentActors.Count;
         for (int j = 0; j < currentActorCount; j++)
         {
@@ -71,6 +79,23 @@ public class BehaviourManager : MonoBehaviour
                 }
             }
         }
+
+
+        bool isSysTicked = false;
+        foreach (BehaviourComponent behaviour in systemBehaviors)
+        {
+            if (isSysTicked)
+            {
+                behaviour.ticks = 0;
+            }
+            else if (behaviour.OnTick())
+            {
+                isSysTicked = true;
+                behaviour.ticks = 0;
+            }
+        }
+
+        UpdateUI();
         // foreach (Actor actor in currentActors) {
         //     bool isTicked = false;
         //     foreach (BehaviourComponent behaviour in actor.behaviours)
@@ -87,6 +112,15 @@ public class BehaviourManager : MonoBehaviour
         //         }
         //     }
         // }
+    }
+
+    // private void TickBehaviours(IEnumerable<BehaviourComponent> behaviours)
+    // {
+    // }
+
+    private void UpdateUI()
+    {
+        tickText.text = $"Ticks: {totalTicks}";
     }
 
     public void SpawnActor(Actor actorToSpawn, HexCell spawnPos)
