@@ -9,9 +9,7 @@ public class CameraController : MonoBehaviour
 {
     CinemachineVirtualCamera cam;
     Rigidbody rb;
-    public float xOffset;
-    public float zMinOffset;
-    public float zMaxOffset;
+    public float borderOffset = 5f;
     public float lerpDur = 10;
     public float minFov = 20;
     public float maxFov = 80;
@@ -37,8 +35,8 @@ public class CameraController : MonoBehaviour
         cam.m_Lens.FieldOfView = Mathf.Lerp(cam.m_Lens.FieldOfView, lerpTarget, lerpDur * Time.deltaTime);
 
         moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-        moveDir.x = Mathf.Clamp(moveDir.x, transform.position.x < -HexGrid.i.XMax - xOffset ? 0 : -1, transform.position.x > HexGrid.i.XMax + xOffset ? 0 : 1);
-        moveDir.z = Mathf.Clamp(moveDir.z, transform.position.z < -HexGrid.i.ZMax - zMinOffset ? 0 : -1, transform.position.z > HexGrid.i.ZMax + zMaxOffset ? 0 : 1);
+        moveDir.x = Mathf.Clamp(moveDir.x, transform.position.x < (-HexGrid.i.width / 2 - borderOffset) ? 0 : -1, transform.position.x > (HexGrid.i.width / 2 + borderOffset) ? 0 : 1);
+        moveDir.z = Mathf.Clamp(moveDir.z, transform.position.z < (-HexGrid.i.height / 2 - borderOffset) ? 0 : -1, transform.position.z > (HexGrid.i.height / 2 + borderOffset) ? 0 : 1);
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -66,7 +64,7 @@ public class CameraController : MonoBehaviour
         {
             pointerTarget = MouseInWorldCoords() - pointerPos;
             Vector3 targetPos = transform.position - pointerTarget;
-            rb.MovePosition(new Vector3(Mathf.Clamp(targetPos.x, -HexGrid.i.XMax - xOffset, HexGrid.i.XMax + xOffset), transform.position.y, Mathf.Clamp(targetPos.z, -HexGrid.i.ZMax - zMinOffset, HexGrid.i.ZMax + zMaxOffset)));
+            rb.MovePosition(new Vector3(Mathf.Clamp(targetPos.x, -HexGrid.i.width / 2 - borderOffset, HexGrid.i.width / 2 + borderOffset), transform.position.y, Mathf.Clamp(targetPos.z, -HexGrid.i.height / 2 - borderOffset, HexGrid.i.height / 2 + borderOffset)));
         }
         else
             rb.MovePosition(transform.position + moveSens * speedMultiplier * moveDir);

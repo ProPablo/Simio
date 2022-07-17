@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 5953413889308312910}
   - component: {fileID: 5953413889308312909}
   - component: {fileID: 9048271208905315807}
+  - component: {fileID: 805759073725121634}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -109,7 +110,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.778098, y: 1}
+    m_SensorSize: {x: 1.7789935, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -130,14 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398d85723335a3c43a23dee3fc4acedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xOffset: 5
-  zMinOffset: 10
-  zMaxOffset: 0
+  borderOffset: 5
   lerpDur: 10
-  minFov: 20
-  maxFov: 80
-  scrollSens: 0.75
-  moveSens: 0.5
+  minFov: 10
+  maxFov: 50
+  scrollSens: 0.2
+  moveSens: 0.2
 --- !u!54 &9048271208905315807
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -154,6 +153,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &805759073725121634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953413889308312899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: -15, z: -30}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
 --- !u!1 &5953413889510299027
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5953413889510299027}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -15, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

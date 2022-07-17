@@ -73,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6159822467651081129, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: ticksPerAction
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6159822467651081129, guid: 262f92cd149263847a65a2c00bdeca4e, type: 3}
       propertyPath: walkable.Array.size
