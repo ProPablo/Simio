@@ -90,10 +90,12 @@ public class HexGrid : MonoBehaviour
             }
 
         //Needs to happen after all cells filled out
-        //foreach (var cell in cells)
-        //{
-        //    // cell.FindNeighbours(this);
-        //}
+        foreach (var cell in cells)
+        {
+            cell.Init();
+
+            // cell.FindNeighbours(this);
+        }
 
         transform.position = -1* new Vector3(XMax, 0, ZMax) / 2;
     }
@@ -114,7 +116,7 @@ public class HexGrid : MonoBehaviour
         cell.index = index;
         // cell.text.text = cell.coords.ToStringOnSeparateLines();
         cell.text.text = index.ToString();
-        cell.Init();
+        cell.elevation = elevation;
         // cell.elevation = Mathf.PerlinNoise()
         // cell.Init(0, new Vector2Int(x, z), index);
 

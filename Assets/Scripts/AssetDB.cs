@@ -28,9 +28,6 @@ public static class SimioExtensions
     {
         return (int)direction < 3 ? (direction + 3) : (direction - 3);
     }
-
-   
-
 }
 
 public struct EuclidianDistanceVec
@@ -42,8 +39,29 @@ public struct EuclidianDistanceVec
         this.dir = dir;
         this.vec = vec;
     }
-
 }
+
+public enum CellType
+{
+    GRASS,
+    SAND,
+    WATER,
+    SEA,
+    ROCK,
+}
+
+[System.Serializable]
+public struct SpawnDefinition
+{
+    //For now its randomised but soon each mesh will store information about each type of side
+    //public List<GameObject> spawns;
+    //TODO: use wave function collapse with scriptable object defintion of spawnable tiles
+    public GameObject tilePrefab;
+    public Color colorDef;
+    //public string name;
+    public CellType type;
+}
+
 
 public class AssetDB : MonoBehaviour
 {
@@ -56,6 +74,7 @@ public class AssetDB : MonoBehaviour
     //    (new Vector3(-1, 0, -1), Direction.SW),
     //    (new Vector3(-1, 0, 1), Direction.NW)
     //};
+    public HexCellSpawn spawnGenDefinition;
 
     public static EuclidianDistanceVec[] DirectionVectors =
     {
@@ -87,4 +106,23 @@ public class AssetDB : MonoBehaviour
     {
         DirectionVectors = DirectionVectors.Select(v => new EuclidianDistanceVec(v.vec.normalized, v.dir)).ToArray();
     }
+    public static SpawnDefinition GetTileDefinition(float evaluation)
+    {
+        Color definition = i.spawnGenDefinition.regionDefinition.Evaluate(evaluation);
+        try
+        {
+            return i.spawnGenDefinition.spawnDefinitions.First(sd => sd.colorDef == definition);
+        }
+        catch
+        {
+            Debug.LogError($"No color definition for {definition}");
+            throw;
+        }
+        
+    }
+
+    //public static float LowestWaterPointNormalized ()
+    //{
+    //    return i.spawnGenDefinition.regionDefinition.colorKeys[CellType.SAND];
+    //}
 }

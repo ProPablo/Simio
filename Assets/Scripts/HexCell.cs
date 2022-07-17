@@ -7,31 +7,26 @@ using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
 
-public enum CellType
-{
-    GRASS,
-    SAND,
-    WATER,
-    SEA,
-    ROCK
-}
+//[Flags]
+//public enum CellType
+//{
+//    GRASS = 0,
+//    SAND = 1,
+//    WATER = 2,
+//    SEA = 4,
+//    ROCK = 8,
+//    WET = WATER | SEA
+//}
 
-[System.Serializable]
-public struct SpawnDefinition
-{
-    //For now its randomised but soon each mesh will store information about each type of side
-    public List<GameObject> spawns;
-    public Color colorDef;
-    public string name;
-}
+
 
 
 public class HexCell : MonoBehaviour
 {
     public CellType cellType;
     public float elevation = 0f;
-    public Gradient regionDefinition;
-    public SpawnDefinition[] spawnDefinitions;
+    //public Gradient regionDefinition;
+    //public SpawnDefinition[] spawnDefinitions;
     public Image selectImage;
 
     // public Vector2Int location;
@@ -58,28 +53,35 @@ public class HexCell : MonoBehaviour
     {
         //Get components to populate in here
         canvas = GetComponentInChildren<Canvas>();
-        text = canvas.GetComponentInChildren<TextMeshProUGUI>();
+        //text = canvas.GetComponentInChildren<TextMeshProUGUI>();
         selectImage = canvas.GetComponentInChildren<Image>();
-        // selectImage.color = Color.clear;
+        canvas.gameObject.SetActive(false);
         selectImage.enabled = false;
     }
 
     public void Init()
     {
-        Color definition = regionDefinition.Evaluate(elevation);
         try
         {
-            var newSpawn = spawnDefinitions.First(sd => sd.colorDef == definition);
-            var tilePrefab = newSpawn.spawns.RandomElement();
+            var newSpawn = AssetDB.GetTileDefinition(elevation);
+            cellType = newSpawn.type;
+            var tilePrefab = newSpawn.tilePrefab;
+            if (cellType == CellType.WATER || cellType == CellType.SEA)
+            {
+                //var avgHeight = neighbours.Where(n => n != null).Average(n => n.transform.localPosition.y);
+                var pos = transform.localPosition;
+                pos.y = AssetDB.i.spawnGenDefinition.waterHeight * HexGrid.i.heightScale;
+                transform.localPosition = pos;
+            }
             var instanced = Instantiate(tilePrefab, Vector3.zero, Quaternion.identity);
             instanced.transform.SetParent(transform, false);
             instanced.transform.localPosition = Vector3.zero;
             instanced.transform.rotation = Quaternion.Euler(0, 30, 0);
             instanced.transform.localScale = Vector3.one;
         }
-        catch
+        catch (Exception e)
         {
-            Debug.LogError($"No color definition for {definition}");
+            Debug.LogError(e);
         }
     }
 
@@ -106,7 +108,7 @@ public class HexCell : MonoBehaviour
         {
             tileDir = (Direction)Random.Range(0, AssetDB.dirLength);
             neighbourTile = GetNeighbor(tileDir);
-            if (!cellTypes.Contains(neighbourTile.cellType)) neighbourTile = null;
+            if (neighbourTile != null && !cellTypes.Contains(neighbourTile.cellType)) neighbourTile = null;
         }
         while (neighbourTile == null && nCount++ < 6);
         return (neighbourTile, tileDir);
@@ -153,7 +155,7 @@ public class HexCell : MonoBehaviour
         {
             var pos = Vector3.zero;
             pos.y = startingStackOffset + i * minStackHeight;
-            actors[i].transform.localPosition = pos; 
+            actors[i].transform.localPosition = pos;
         }
 
         //var actorRegion = Mathf.Clamp(normalStackHeight / actorStack.Count, minStackHeight, float.MaxValue);
@@ -164,8 +166,8 @@ public class HexCell : MonoBehaviour
         //    var pos = actor.transform.localPosition;
         //    pos.y = startingPoint + actorRegion / 2;
 
-            //    actor.transform.localPosition = pos;
-            //}
+        //    actor.transform.localPosition = pos;
+        //}
     }
 
     public void SetNeighbor(Direction direction, HexCell cell)

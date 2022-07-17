@@ -57,8 +57,8 @@ public class Flee : BehaviourComponent
         var foxToMe = actor.transform.position - currentThreat.transform.position;
 
         var directions = AssetDB.DirectionVectors.OrderBy(d => Vector3.Dot(d.vec, foxToMe));
-        if ()
+        //if ()
 
-        actor.ChangeState(new MoveState(actor, tileDir, ));
+        //actor.ChangeState(new MoveState(actor, tileDir, ));
     }
 }
