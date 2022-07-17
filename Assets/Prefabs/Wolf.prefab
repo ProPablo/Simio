@@ -66,7 +66,7 @@ MonoBehaviour:
   baseAttack: 30
   diet: 2
   type: 2
-  walkable: 000000000100000002000000
+  walkable: 0000000001000000
   totalHealthScaled: 0
   currentHealth: 0
   currentAge: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   actor: {fileID: 0}
   Name: 
   ticks: 0
-  ticksPerAction: 3
+  ticksPerAction: 4
   threats: 03000000
   maxThreatDistance: 4
   currentThreat: {fileID: 0}
@@ -243,7 +243,7 @@ MonoBehaviour:
   ticksPerAction: 4
   huntThreshold: 1
   targets: 01000000
-  seekDistance: 5
+  seekDistance: 6
   currentTarget: {fileID: 0}
   minDot: -0.1
 --- !u!114 &8387772420006037028
@@ -261,7 +261,7 @@ MonoBehaviour:
   actor: {fileID: 0}
   Name: 
   ticks: 0
-  ticksPerAction: 5
+  ticksPerAction: 8
 --- !u!198 &3013219794674892613
 ParticleSystem:
   m_ObjectHideFlags: 0
