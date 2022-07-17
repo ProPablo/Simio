@@ -262,7 +262,7 @@ public class BreedState : IdleState
     Vector3 startPos;
 
     //This is normalized to total duration
-    private readonly float humpInterval = 0.1f;
+    private readonly float humpInterval = 0.25f;
 
     public BreedState(Actor sm, Actor target) : base(sm)
     {
@@ -274,7 +274,6 @@ public class BreedState : IdleState
     public override void OnEnter()
     {
         base.OnEnter();
-        target.ChangeState(new InjuredState(target, actor.attackScaled));
         startPos = actor.transform.localPosition;
     }
 
@@ -284,12 +283,6 @@ public class BreedState : IdleState
         Vector3 targetPos = startPos + AssetDB.DirectionVectors[(int) actor.lastDir].vec * humpDist;
         var currentHumpNormalized = Mathf.Sin(((2 * Mathf.PI) / (humpInterval * duration)) * age);
         actor.transform.localPosition = Vector3.LerpUnclamped(startPos, targetPos, currentHumpNormalized);
-
-        // Vector3.Lerp(startPos, targetPos, KongrooUtils.RemapRange(age, duration, halfwayPoint, 0, 1));
-        // if (age > halfwayPoint)
-        //     actor.transform.localPosition = Vector3.Lerp(startPos, targetPos, KongrooUtils.RemapRange(age, duration, halfwayPoint, 0, 1));
-        // else
-        //     actor.transform.localPosition = Vector3.Lerp(targetPos, startPos, KongrooUtils.RemapRange(age, halfwayPoint, 0, 0, 1));
     }
 
     public override void OnExit()
