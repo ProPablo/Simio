@@ -4909,6 +4909,7 @@ GameObject:
   - component: {fileID: 4865551767721051633}
   - component: {fileID: 4865551767721051632}
   - component: {fileID: 3811667484079063732}
+  - component: {fileID: 6368936718556721861}
   - component: {fileID: 7077765094387120230}
   - component: {fileID: 3980922032982685469}
   - component: {fileID: 7676757871324270204}
@@ -4959,7 +4960,7 @@ MonoBehaviour:
   baseHealth: 100
   maxAge: 1000
   baseAttack: 30
-  diet: 2
+  diet: 3
   type: 3
   walkable: 000000000100000002000000
   totalHealthScaled: 0
@@ -5101,6 +5102,24 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6368936718556721861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4865551767721051639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b82a9e8b09c4954387fd26cb5beda8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actor: {fileID: 0}
+  Name: 
+  ticks: 0
+  ticksPerAction: 1
+  hungerThreshold: 0.95
+  consumeRate: 5
 --- !u!114 &7077765094387120230
 MonoBehaviour:
   m_ObjectHideFlags: 0

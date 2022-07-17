@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class BehaviourManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BehaviourManager : MonoBehaviour
     public Actor[] actorSpawns;
     public List<Actor> currentActors = new List<Actor>();
     public Actor corpseActor;
+    public Image pieCirclePrefab;
+    private List<Image> pieCircles = new List<Image>();
     private void Awake()
     {
         i = this;
@@ -68,6 +71,12 @@ public class BehaviourManager : MonoBehaviour
         spawned.deathEvent += DeathEvent;
     }
 
+    private void SetPieChart()
+    {
+        
+        
+    }
+
     public void SpawnRandomActor()
     {
         var selectedTile = HexGrid.i.currentlySelected;
@@ -78,6 +87,7 @@ public class BehaviourManager : MonoBehaviour
     public void DeathEvent(StateMachine sm)
     {
         currentActors.Remove(sm as Actor);
+        sm.deathEvent -= DeathEvent;
     }
     public void SpawnCorpse(HexCell tile)
     {

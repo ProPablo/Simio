@@ -5,11 +5,14 @@ using System.Linq;
 
 public class Eat : BehaviourComponent
 {
-    [Tooltip("Will eat when health is below this threshold")]
-    [Range(0, 1)] public float hungerThreshold = 0.95f;
+    [Tooltip("Will eat when health is below this threshold")] [Range(0, 1)]
+    public float hungerThreshold = 0.95f;
+
     [Tooltip("How much HP to consume per action")]
     public int consumeRate = 5;
+
     Actor food = null;
+
     public override bool OnTick()
     {
         base.OnTick();
@@ -44,20 +47,24 @@ public class Eat : BehaviourComponent
                 //    return true;
             }
         }
+
         return false;
     }
+
     Actor GetClosestResource(Diet resType)
     {
         var allTiles = actor.currentTile.neighbours.Append(actor.currentTile);
-        return allTiles.SelectMany(t => t.actorStack.Where(a => a.diet == resType)).FirstOrDefault();
+        return allTiles
+            .SelectMany(t => t.actorStack.Where(a => a.type == ActorType.RESOURCE && a.diet == resType))
+            .FirstOrDefault();
     }
+
     public override void OnAction()
     {
         //Subscribe to if the food dies early THERE MAY BE AN ERROR HERE
         base.OnAction();
         if (food == null) return;
-        actor.currentHealth = Mathf.Clamp(actor.currentHealth + consumeRate, 0, actor.totalHealthScaled);
-        food.currentHealth -= consumeRate;
+        actor.ChangeState(new EatingState(actor, food, consumeRate));
         food = null;
     }
 }

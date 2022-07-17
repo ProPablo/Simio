@@ -174,6 +174,12 @@ public class InjuredState : IdleState
         actor.currentHealth -= _damageTaken;
         actor.bloodParticles.Emit(_damageTaken);
     }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        actor.bloodParticles.Stop();
+    }
 }
 public class EatingState : IdleState
 {
@@ -188,8 +194,10 @@ public class EatingState : IdleState
     public override void OnEnter()
     {
         base.OnEnter();
-        actor.currentHealth += healAmount;
+        actor.currentHealth = Mathf.Clamp(actor.currentHealth + healAmount, 0, actor.totalHealthScaled);
         target.currentHealth -= healAmount;
+        // actor.currentHealth += healAmount;
+        // target.currentHealth -= healAmount;
         actor.foodParticles.Play();
     }
     public override void OnExit()
